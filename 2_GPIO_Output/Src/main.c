@@ -26,25 +26,36 @@ static void delay_cycles(volatile uint32_t count)
  * 0b 0000 0000 0000 0000 0000 0001 0000 0000
  */
 #define GPIOAEN 	(1U << 0)
+#define GPIOCEN 	(1U << 2)
+
 #define PIN5	 	(1U<<5)
+#define PIN13	 	(1U<<13)
+
 #define LED_PIN 	PIN5
+#define USER_BUTTON PIN13
+
 
 int main(void)
 {
+	// Enable clock access
 	RCC->AHB1ENR |= GPIOAEN;
+	RCC->AHB1ENR |= GPIOCEN;
 
 	/* 2. Configure PA5 as general-purpose output (Mode 01b) */
 	GPIOA->MODER &= ~(3U << (5 * 2)); /* Shifts 0b 11 to bits 11:10 */
 	GPIOA->MODER |=  (1U << (5 * 2)); /* Set bit 10 to 1 */
 
+	/* Set PC13 as Input pin */
+	GPIOC->MODER &= ~(3U << (13 * 2)); // clears Bit 27:26 to 0 which is Input Mode
+
     /* Loop forever */
 	while(1)
 	{
-		/// 8.4.7 GPIOx_BSRR Bit set and reset register
-		GPIOA->BSRR = PIN5; // BS5
-		delay_cycles(250000*10);
-
-		GPIOA->BSRR = (PIN5 << 16);// BR5 (1U<<21)
-		delay_cycles(250000*10);
+		if (GPIOC->IDR & USER_BUTTON){
+			/// 8.4.7 GPIOx_BSRR Bit set and reset register
+			GPIOA->BSRR = LED_PIN; // BS5 Set High
+		} else {
+			GPIOA->BSRR = (LED_PIN << 16);// BR5 (1U<<21) Reset
+		}
 	}
 }
