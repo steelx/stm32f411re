@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>STM32F411RE | Register Atlas</title>
+<style>:root{--paper:#fff;--canvas:#f5f7f8;--ink:#182629;--muted:#56666b;--line:#dce3e6;--accent:#087d73;--soft:#e8f5f1;--blue:#2563a6;--pink:#a13563;--amber:#a54b16;--mono:Consolas,"SFMono-Regular",monospace;--sans:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--canvas);font:14px/1.5 var(--sans);color:var(--ink)}button,input,select{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.45}button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,[role=button]:focus-visible{outline:3px solid #58acff;outline-offset:3px}a{color:var(--accent);text-underline-offset:3px}h1,h2,h3,p{margin:0}h1{font-size:19px;font-weight:650}h2{font-size:15px;font-weight:650}h3{font-size:13px;font-weight:650}button{color:inherit}code,.mono{font-family:var(--mono)}[hidden]{display:none!important}svg.icon{width:18px;height:18px;vertical-align:middle;flex-shrink:0;display:block}.app-header{height:78px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 25px;border-bottom:1px solid var(--line);background:white}.brand{display:flex;align-items:center;gap:12px}.brand-icon{color:var(--accent);display:grid;place-items:center;border:1px solid #b4d8ce;width:39px;height:39px;border-radius:6px}.brand-icon svg{width:24px;height:24px}.brand>div>span{font-size:11px;color:var(--muted);font-family:var(--mono)}.divider{color:#b1bec2;margin:0 6px}.header-end{display:flex;align-items:center;gap:18px}.offline{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted)}.offline i{width:6px;height:6px;border-radius:50%;background:var(--accent)}.icon-button{background:transparent;border:1px solid var(--line);border-radius:5px;display:inline-flex;align-items:center;justify-content:center;min-width:32px;height:32px;padding:6px}.icon-button:hover{background:var(--soft)}.text-button{background:transparent;border:0;color:var(--accent);padding:5px 7px;font-size:12px}.workspace{display:grid;grid-template-columns:220px minmax(440px,1fr) 408px;align-items:start;min-height:calc(100vh - 78px)}.navigator{padding:20px 14px;border-right:1px solid var(--line);background:#fcfdfd;position:sticky;top:0;max-height:100vh;display:flex;flex-direction:column;min-width:0}.search-box{display:flex;align-items:center;border:1px solid #bac8cd;border-radius:5px;background:white;padding:8px;gap:6px}.search-box svg{color:var(--muted);width:15px}.search-box input{border:0;outline:0;min-width:0;width:100%;font-size:12px;background:transparent;color:var(--ink)}.navigator select{margin-top:10px;width:100%;padding:7px 8px;border:1px solid var(--line);background:#fff;border-radius:5px;font-size:12px}.nav-meta{display:flex;align-items:center;justify-content:space-between;margin:15px 5px 8px;height:20px;font-size:11px;color:var(--muted)}#item-list{overflow:auto;min-height:100px;max-height:calc(100vh - 265px);padding:0 2px 7px}.nav-group{font-size:10px;letter-spacing:.09em;color:#66777c;font-weight:650;padding:13px 9px 6px;text-transform:uppercase}.nav-item{display:flex;gap:9px;align-items:center;width:100%;background:transparent;border:1px solid transparent;text-align:left;border-radius:5px;padding:8px;margin:2px 0}.nav-item:hover{background:#eef2f3}.nav-item.active{background:var(--soft);border-color:#b3dbd0;color:#086459}.nav-dot{height:6px;width:6px;border-radius:2px;background:#9baeb4;flex-shrink:0}.nav-item.active .nav-dot{background:var(--accent)}.nav-name{font-size:12px;font-weight:550;display:block}.nav-caption{display:block;font-size:10px;color:var(--muted);font-family:var(--mono)}.nav-foot{margin:20px 8px 0;padding-top:14px;border-top:1px solid var(--line);font-size:11px;color:var(--muted);display:grid;gap:6px}.small-label{font-size:10px;letter-spacing:.1em;color:var(--muted);font-weight:650;text-transform:uppercase}.main{min-width:0;background:#f6f8f9}.map-toolbar{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:15px 20px;border-bottom:1px solid var(--line);background:#fff;min-height:65px}.segments{display:flex;background:#eef2f3;border-radius:6px;padding:3px}.segments button{display:flex;align-items:center;gap:6px;background:transparent;border:0;padding:7px 11px;border-radius:4px;font-size:12px;color:var(--muted)}.segments button[aria-selected=true]{background:white;color:var(--ink);box-shadow:0 1px 3px #192f3820}.segments svg{width:15px;height:15px}.zoom-tools{display:flex;gap:4px;align-items:center}.zoom-tools .icon-button{border:0}.map-section{padding:20px 22px 12px}.section-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.section-heading>span{font-size:11px;color:var(--muted)}.map-area{width:100%;overflow:auto;min-height:240px}.map-svg{display:block;width:100%;margin:0 auto;min-width:500px}.map-svg text{font-family:var(--sans);pointer-events:none}.map-svg .label{font-size:13px;fill:var(--ink);font-weight:600}.map-svg .sub{font-size:11px;fill:var(--muted);font-family:var(--mono)}.map-svg .micro{font-size:10px;fill:var(--muted);font-family:var(--mono)}.hit{cursor:pointer}.hit .outline{stroke:#a9b9be;stroke-width:1.25;fill:#fff}.hit:hover .outline,.hit:focus-visible .outline{stroke:var(--accent);stroke-width:2;fill:#e7f4f0}.hit.selected .outline{stroke:var(--accent);stroke-width:2.5;fill:#d9f0e7}.hit.selected text.label{fill:#075e53}.hit.selected .socket{fill:#087d73;stroke:#087d73}.hit .socket{fill:#fff;stroke:#9caeb3;stroke-width:1.25}.hit:hover .socket{fill:#bde4d8}.map-caption{font-size:11px;color:var(--muted);padding-top:12px;display:flex;gap:10px;flex-wrap:wrap}.map-caption code{color:var(--accent)}.route-section{border-top:1px solid var(--line);padding:20px 22px;background:white}.legend{display:flex;gap:11px;flex-wrap:wrap;font-size:10px;color:var(--muted)}.legend span{display:flex;align-items:center;gap:5px}.legend i{width:16px;height:0;border-top:2px solid var(--accent)}.legend .clock-line{border-color:var(--amber);border-top-style:dashed}.route-svg{width:100%;display:block}.route-svg text{font-family:var(--sans);fill:var(--ink);font-size:12px}.route-svg .route-small{font:10px var(--mono);fill:var(--muted)}.route-note{font-size:12px;color:var(--muted);border-left:2px solid #c8e4db;padding-left:10px;margin-top:10px;line-height:1.6}.main-footer{padding:14px 22px;color:var(--muted);font-size:10px;border-top:1px solid var(--line);display:flex;gap:12px;flex-wrap:wrap}.inspector{border-left:1px solid var(--line);min-width:0;background:white;min-height:calc(100vh - 78px)}.selection-head{padding:22px 22px 16px;border-bottom:1px solid var(--line)}.selection-head h2{font-size:23px;line-height:1.3;margin-top:7px}.selection-head p{margin-top:5px;color:var(--muted);font:12px/1.7 var(--mono)}.tags{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}.tag{padding:3px 7px;background:#eef3f5;border-radius:4px;font:11px var(--mono);color:#435b66}.tag.green{background:var(--soft);color:var(--accent)}#selection-options{padding:12px 22px;border-bottom:1px solid var(--line)}#selection-options:empty{display:none}.option-row{display:flex;align-items:center;gap:8px;justify-content:space-between;margin:4px 0}.option-row label{font-size:12px;color:var(--muted)}.option-row select{max-width:230px;min-width:0;border:1px solid #cbd6d9;border-radius:5px;padding:6px 7px;font-size:12px;background:#fff}.inspector-tabs{display:flex;padding:0 22px;border-bottom:1px solid var(--line);gap:22px}.inspector-tabs button{border:0;border-bottom:2px solid transparent;background:white;padding:12px 0;font-size:12px;color:var(--muted)}.inspector-tabs button[aria-selected=true]{border-bottom-color:var(--accent);color:var(--accent);font-weight:600}#detail-body{padding:20px 22px 28px}.detail-section{margin-top:21px}.detail-section:first-child{margin-top:0}.detail-section h3{margin-bottom:10px}.clock-box{border:1px solid #c9ded7;background:#f0f8f4;border-radius:6px;padding:12px}.clock-top{display:flex;align-items:center;justify-content:space-between;gap:5px;font:12px var(--mono);margin-bottom:10px}.clock-top strong{color:#086457}.clock-box p{font-size:12px;margin-top:7px}.clock-address{display:flex;align-items:center;justify-content:space-between;font:12px var(--mono);color:var(--muted);padding-top:7px}.address-formula{border-bottom:1px solid var(--line);padding-bottom:14px;display:grid;grid-template-columns:1fr auto;gap:7px;font:12px var(--mono)}.address-formula span:nth-child(odd){color:var(--muted)}.address-formula .answer{color:var(--accent);font-weight:600}.register-table{width:100%;border-collapse:collapse;font-size:11px}.register-table th{font-size:10px;font-weight:500;color:var(--muted);text-align:left;padding:7px 3px;border-bottom:1px solid var(--line)}.register-table td{padding:0 3px;border-bottom:1px solid #edf0f1;font-family:var(--mono)}.register-table button{width:100%;padding:8px 0;text-align:left;background:none;border:0;color:inherit;font-family:inherit;font-size:11px}.register-table tr.chosen{color:var(--accent);background:var(--soft)}.register-table .access-type{font-size:10px;color:var(--muted)}.register-table td:last-child{text-align:right}.register-note{font-size:12px;margin:9px 0;color:var(--muted);line-height:1.6}.bit-header{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px;margin:16px 0 12px}.bit-header code{font-size:11px;color:var(--accent)}.bit-grid{display:grid;grid-template-columns:repeat(16,minmax(0,1fr));gap:2px}.bit{border:1px solid var(--line);background:#f7f9fa;border-radius:2px;padding:3px 0;min-width:0;font:10px var(--mono);text-align:center;color:#62737b}.bit b{display:block;color:var(--ink);font-size:12px;margin-top:4px}.bit.focus-bit{background:#d9f0e7;border-color:#86bfb1;color:#075e53}.bit.focus-bit b{color:#075e53}.bit.reserved{background:#fbfbfb;color:#839094}.bit.reserved b{color:#89949a}.bit-break{grid-column:1/-1;height:7px}.bit-explainer{margin:10px 0;font-size:12px;color:var(--muted);min-height:36px}.formula-chip{display:block;background:#f2f5f6;border:1px solid var(--line);padding:10px;border-radius:5px;font:12px/1.8 var(--mono);overflow-wrap:anywhere}.mini-alert{padding:10px 12px;border-left:3px solid var(--amber);background:#fcf4e9;color:#71421a;font-size:12px;line-height:1.6;margin-top:14px}.plain-note{font-size:12px;color:var(--muted);line-height:1.7;margin-top:12px}.code-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:8px}.code-toolbar select{font-size:12px;border:1px solid var(--line);border-radius:5px;background:#fff;padding:6px;max-width:190px}.code-actions{display:flex;gap:6px}pre{white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;background:#f2f5f6;border:1px solid var(--line);border-radius:6px;padding:13px;font:11px/1.8 var(--mono);margin:0;tab-size:4;color:#183f47}.source-link{display:block;font-size:11px;line-height:1.7;margin:6px 0}.note-list{padding-left:18px;font-size:12px;color:var(--muted);line-height:1.7}.note-list li{margin:8px 0}.pin-route-links{display:flex;flex-wrap:wrap;gap:5px}.pin-route-links button{border:1px solid var(--line);background:white;border-radius:4px;padding:5px 7px;font:11px var(--mono)}.pin-route-links button:hover{background:var(--soft)}.empty{padding:20px 7px;font-size:12px;color:var(--muted)}.pins-grid{display:grid;gap:15px}.port-row{display:grid;grid-template-columns:64px 1fr;gap:8px;align-items:start}.port-row h3{font:12px var(--mono);padding-top:8px}.port-pins{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}.pin-tile{border:1px solid var(--line);border-radius:4px;text-align:left;padding:7px 8px;background:white;min-width:0}.pin-tile strong{display:block;font:12px var(--mono)}.pin-tile small{display:block;font-size:10px;color:var(--muted)}.pin-tile.selected{border-color:var(--accent);background:var(--soft)}.pin-tile:disabled{opacity:.55}.empty-port{font-size:12px;color:var(--muted);padding:9px}.bus-blurb{margin-top:10px;padding-top:8px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}#tooltip{position:fixed;z-index:20;background:#193c3b;color:#fff;box-shadow:0 4px 16px #102d3426;border:1px solid #285651;border-radius:6px;padding:11px 13px;width:280px;pointer-events:none;font-size:12px;line-height:1.6}#tooltip strong{display:block;font-size:13px;margin-bottom:3px}#tooltip code{color:#b2eedc;font-size:11px}#tooltip .tooltip-note{font-size:11px;color:#d7e5e1;margin-top:5px}#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#173d36;color:white;font-size:12px;border-radius:5px;padding:10px 16px;box-shadow:0 4px 15px #102d3426;z-index:40;opacity:0;pointer-events:none;transition:opacity .15s;max-width:90vw}#toast.visible{opacity:1}dialog{border:1px solid var(--line);border-radius:8px;max-width:610px;width:calc(100% - 30px);padding:24px;color:var(--ink);box-shadow:0 20px 70px #183d4733}dialog::backdrop{background:#143e4159}.dialog-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.dialog-head h2{font-size:20px}#sources-content{font-size:13px;line-height:1.7}#sources-content p{margin:12px 0}#sources-content h3{margin:17px 0 5px}.copy-fallback{display:block;width:100%;height:120px;margin-top:10px;font:11px var(--mono)}.simulation{border:1px solid var(--line);padding:12px;border-radius:6px;margin-top:18px}.simulation label{font-size:12px}.simulation-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:9px}.simulation button{border:1px solid var(--line);background:#f2f5f6;border-radius:4px;padding:5px 9px;font-size:12px}.simulation output{font:12px var(--mono);color:var(--accent)}.sim-title{font-size:11px;color:var(--muted)}.access-label{background:#eef4f6;border-radius:4px;padding:2px 6px;font:11px var(--mono)}
+@media(min-width:1600px){.workspace{grid-template-columns:245px minmax(500px,1fr) 470px}.map-svg{max-width:740px}.map-section{padding:22px 32px}.route-section{padding:22px 32px}pre{font-size:12px}.register-table,.register-table button{font-size:12px}}
+@media(max-width:1170px){.workspace{grid-template-columns:190px minmax(365px,1fr) 355px}.navigator{padding:15px 10px}.map-section,.route-section{padding-left:15px;padding-right:15px}.map-toolbar{padding:12px}.selection-head,#selection-options{padding-left:17px;padding-right:17px}.inspector-tabs{padding:0 17px;gap:18px}#detail-body{padding:17px}.section-heading{flex-wrap:wrap}.segments button{padding:6px 8px}.zoom-tools{gap:0}.zoom-tools .icon-button{min-width:25px}.register-table td{font-size:10px}.clock-top{font-size:11px}}
+@media(max-width:940px){.workspace{grid-template-columns:190px minmax(0,1fr)}.inspector{grid-column:2;border-top:1px solid var(--line);border-left:0;min-height:0}.navigator{grid-row:1/3}.main{border-bottom:0}.map-svg{max-width:610px}.selection-head h2{font-size:22px}.register-table,.register-table td,.register-table button{font-size:12px}.bit-grid{gap:4px}.bit{font-size:11px}.bit b{font-size:13px}pre{font-size:12px}}
+@media(max-width:640px){.app-header{padding:12px 15px;height:73px}.brand-icon{width:33px;height:33px}.brand{gap:9px}h1{font-size:17px}.header-end{gap:8px}.offline{font-size:0;gap:0}.workspace{display:block}.navigator{position:relative;max-height:none;padding:12px 15px 0;border-right:0;border-bottom:1px solid var(--line)}.search-box{padding:9px}.search-box input{font-size:16px}.navigator select{display:none}.nav-meta{margin:8px 2px 0}.nav-foot{display:none}#item-list{display:flex;overflow-x:auto;max-height:180px;min-height:0;gap:5px;padding:7px 0 11px;align-items:start}.nav-group{display:none}.nav-item{flex:0 0 auto;width:auto;padding:7px 10px;border-color:var(--line);background:#fff}.nav-item .nav-caption{font-size:10px}.nav-item .nav-name{font-size:12px}.nav-dot{display:none}.map-toolbar{padding:11px 14px}.map-section{padding:16px 12px 12px}.route-section{padding:17px 15px}.map-caption{font-size:11px}.map-area{min-height:0}.map-svg{min-width:500px}.main-footer{padding:13px 15px}.inspector{border-top:1px solid var(--line)}.selection-head,#selection-options,#detail-body{padding-left:18px;padding-right:18px}.inspector-tabs{padding-left:18px}.selection-head h2{font-size:22px}.option-row select{font-size:14px;max-width:225px}.port-row{grid-template-columns:48px 1fr}.port-pins{grid-template-columns:repeat(3,minmax(0,1fr))}.pin-tile{min-height:48px}.bit{min-height:38px}.bit b{margin-top:2px}.code-toolbar select{font-size:13px}.icon-button{min-width:36px;height:36px}.inspector-tabs button{padding-top:15px;padding-bottom:15px}.legend{font-size:11px}.nav-meta{font-size:11px}.section-heading>span{font-size:11px}.register-table td{font-size:11px}.clock-top{font-size:12px}.simulation button{min-height:40px}.pin-route-links button{min-height:36px}.map-toolbar .segments button{padding:7px 9px}.map-toolbar .zoom-tools .icon-button{min-width:26px}.map-toolbar .text-button{padding:4px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media print{.navigator,.app-header,.map-toolbar,.inspector-tabs,.code-actions,.zoom-tools{display:none}.workspace{display:block}.inspector{border:0}.map-area{overflow:visible}.map-svg{min-width:0;max-height:650px}.route-section{break-inside:avoid}.inspector{break-before:page}body{background:white}}
+:root .source-link .icon{display:inline-block;width:12px;height:12px;vertical-align:middle}
+</style>
+</head>
+<body>
+<header class="app-header">
+  <div class="brand"><span class="brand-icon" data-icon="Cpu"></span><div><h1>Register Atlas</h1><span>STM32F411RE <span class="divider">/</span> NUCLEO-64</span></div></div>
+  <div class="header-end"><span class="offline"><i></i> Offline reference</span><button class="icon-button" id="help-button" aria-label="Sources and scope" title="Sources and scope" data-icon="BookOpen"></button></div>
+</header>
+<div class="workspace">
+<aside class="navigator" aria-label="Find a component">
+  <label class="search-box"><span data-icon="Search"></span><input id="search" type="search" placeholder="Pin, register, address..." aria-label="Search pins, peripherals, registers or addresses" autocomplete="off" spellcheck="false"></label>
+  <select id="category" aria-label="Filter component category"><option value="all">All components</option><option value="board">On the board</option><option value="pin">GPIO pins</option><option value="peripheral">Peripherals</option></select>
+  <div class="nav-meta"><span id="result-count"></span><button id="clear-search" class="text-button" hidden>Clear</button></div>
+  <nav id="item-list" aria-label="Component list"></nav>
+  <div class="nav-foot"><span class="small-label">DOCUMENT SET</span><span>RM0383 r4 / DS10314 r8<br>UM1724 r17</span></div>
+</aside>
+<main class="main">
+  <div class="map-toolbar"><div class="segments" role="tablist" aria-label="Explorer view"><button id="tab-board" role="tab" aria-selected="true" aria-controls="map-area" data-view="board"><span data-icon="CircuitBoard"></span>Board</button><button id="tab-bus" role="tab" aria-selected="false" aria-controls="map-area" data-view="bus"><span data-icon="Network"></span>Buses</button><button id="tab-pins" role="tab" aria-selected="false" aria-controls="map-area" data-view="pins"><span data-icon="Grid2x2"></span>Pins</button></div><div class="zoom-tools"><button id="zoom-out" class="icon-button" aria-label="Zoom out" title="Zoom out" data-icon="Minus"></button><button id="zoom-fit" class="text-button" title="Fit diagram">Fit</button><button id="zoom-in" class="icon-button" aria-label="Zoom in" title="Zoom in" data-icon="Plus"></button></div></div>
+  <section class="map-section"><div class="section-heading"><h2 id="map-title">Board connections</h2><span id="map-subtitle">Top view / functional layout</span></div><div id="map-area" role="tabpanel" aria-labelledby="tab-board" class="map-area"></div><div id="map-caption" class="map-caption"></div></section>
+  <section class="route-section"><div class="section-heading"><h2>Access &amp; clock path</h2><div class="legend"><span><i class="access-line"></i>Register access</span><span><i class="clock-line"></i>Clock gate</span></div></div><div id="route-area"></div><p id="route-note" class="route-note"></p></section>
+  <footer class="main-footer"><span>Reference model, not a live debugger.</span><span>Values are computed from documented bases and offsets.</span></footer>
+</main>
+<aside class="inspector" aria-label="Selected component details">
+  <div class="selection-head"><span class="small-label" id="selection-kind"></span><h2 id="selection-title"></h2><p id="selection-subtitle"></p><div id="selection-tags" class="tags"></div></div>
+  <div id="selection-options"></div>
+  <div class="inspector-tabs" role="tablist" aria-label="Component detail view"><button id="detail-registers" data-detail="registers" role="tab" aria-selected="true" aria-controls="detail-body">Registers</button><button id="detail-code" data-detail="code" role="tab" aria-selected="false" aria-controls="detail-body">C code</button><button id="detail-notes" data-detail="notes" role="tab" aria-selected="false" aria-controls="detail-body">Notes</button></div>
+  <div id="detail-body" role="tabpanel" aria-labelledby="detail-registers"></div>
+</aside>
+</div>
+<div id="tooltip" role="tooltip" hidden></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<dialog id="sources-dialog"><div class="dialog-head"><h2>Sources &amp; scope</h2><button id="close-sources" class="icon-button" aria-label="Close sources" data-icon="X"></button></div><div id="sources-content"></div></dialog>
+<noscript>This offline explorer requires JavaScript enabled in your browser.</noscript>
+<script>// Icons: Lucide, ISC license, https://lucide.dev
+const ICONS = {"Cpu":"<svg class=\"icon\" xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 20v2\"></path><path d=\"M12 2v2\"></path><path d=\"M17 20v2\"></path><path d=\"M17 2v2\"></path><path d=\"M2 12h2\"></path><path d=\"M2 17h2\"></path><path d=\"M2 7h2\"></path><path d=\"M20 12h2\"></path><path d=\"M20 17h2\"></path><path d=\"M20 7h2\"></path><path d=\"M7 20v2\"></path><path d=\"M7 2v2\"></path><rect x=\"4\" y=\"4\" width=\"16\" height=\"16\" rx=\"2\"></rect><rect x=\"8\" y=\"8\" width=\"8\" height=\"8\" rx=\"1\"></rect></svg>","BookOpen":"<svg class=\"icon\" xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 7v14\"></path><path d=\"M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z\"></path></svg>","Search":"<svg class=\"icon\" xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m21 21-4.34-4.34\"></path><circle cx=\"11\" cy=\"11\" r=\"8\"></circle></svg>","CircuitBoard":"<svg class=\"icon\" xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\"></rect><path d=\"M11 9h4a2 2 0 0 0 2-2V3\"></path><circle cx=\"9\" cy=\"9\" r=\"2\"></circle><path d=\"M7 21v-4a2 2 0 0 1 2-2h4\"></path><circle cx=\"15\" cy=\"15\" r=\"2\"></circle></svg>","Network":"<svg class=\"icon\" xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"16\" y=\"16\" width=\"6\" height=\"6\" rx=\"1\"></rect><rect x=\"2\" y=\"16\" width=\"6\" height=\"6\" rx=\"1\"></rect><rect x=\"9\" y=\"2\" width=\"6\" height=\"6\" rx=\"1\"></rect><path d=\"M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3\"></path><path d=\"M12 12V8\"></path></svg>","Grid2x2":"<svg class=\"icon\" xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 3v18\"></path><path d=\"M3 12h18\"></path><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"></rect></svg>","Minus":"<svg class=\"icon\" xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"></path></svg>","Plus":"<svg class=\"icon\" xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"></path><path d=\"M12 5v14\"></path></svg>","Copy":"<svg class=\"icon\" xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect width=\"14\" height=\"14\" x=\"8\" y=\"8\" rx=\"2\" ry=\"2\"></rect><path d=\"M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2\"></path></svg>","Download":"<svg class=\"icon\" xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 15V3\"></path><path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"></path><path d=\"m7 10 5 5 5-5\"></path></svg>","X":"<svg class=\"icon\" xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M18 6 6 18\"></path><path d=\"m6 6 12 12\"></path></svg>","ArrowUpRight":"<svg class=\"icon\" xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M7 7h10v10\"></path><path d=\"M7 17 17 7\"></path></svg>"};</script>
+<script>'use strict';
+// Verified against the supplied document revisions. Package: STM32F411RE, LQFP64.
+const DOCS = {
+  rm: {name:'RM0383 Rev 4',url:'https://www.st.com/resource/en/reference_manual/rm0383-stm32f411xce-advanced-armbased-32bit-mcus-stmicroelectronics.pdf'},
+  ds: {name:'DS10314 Rev 8',url:'https://www.st.com/resource/en/datasheet/stm32f411re.pdf'},
+  um: {name:'UM1724 Rev 17',url:'https://www.st.com/resource/en/user_manual/um1724-stm32-nucleo64-boards-mb1136-stmicroelectronics.pdf'}
+};
+const RCC_BASE = 0x40023800;
+const BUSES = {
+  AHB1:{reg:'AHB1ENR',offset:0x30,page:118,clock:'HCLK',limit:'Up to 100 MHz',color:'#087d73'},
+  AHB2:{reg:'AHB2ENR',offset:0x34,page:119,clock:'HCLK',limit:'Up to 100 MHz; USB also needs 48 MHz',color:'#a54b16'},
+  APB1:{reg:'APB1ENR',offset:0x40,page:119,clock:'PCLK1',limit:'Up to 50 MHz',color:'#2563a6'},
+  APB2:{reg:'APB2ENR',offset:0x44,page:122,clock:'PCLK2',limit:'Up to 100 MHz',color:'#a13563'}
+};
+const PORTS = {A:{base:0x40020000,bit:0}, B:{base:0x40020400,bit:1}, C:{base:0x40020800,bit:2}, D:{base:0x40020C00,bit:3}, E:{base:0x40021000,bit:4}, H:{base:0x40021C00,bit:7}};
+const REGS = {
+  gpio:[['MODER',0x00,'RW',158,'Two bits per pin: 00 input, 01 output, 10 alternate function, 11 analog.'],['OTYPER',0x04,'RW',158,'One bit per pin: 0 push-pull, 1 open-drain.'],['OSPEEDR',0x08,'RW',159,'Two bits per pin set the output slew/speed class, not the software toggle rate.'],['PUPDR',0x0C,'RW',159,'Two bits per pin: 00 none, 01 pull-up, 10 pull-down; 11 reserved.'],['IDR',0x10,'RO',160,'Read the sampled digital level. Bit n corresponds to pin n.'],['ODR',0x14,'RW',160,'Output latch. Prefer BSRR for atomic individual set/reset operations.'],['BSRR',0x18,'WO',161,'Write 1 to bit n to set the output. Write 1 to bit n+16 to reset it. No read-modify-write.'],['LCKR',0x1C,'RW',161,'Configuration lock with a defined key sequence. Not a simple enable flag.'],['AFRL',0x20,'RW',162,'Four bits per pin for pins 0-7. CMSIS name: AFR[0].'],['AFRH',0x24,'RW',163,'Four bits per pin for pins 8-15. CMSIS name: AFR[1].']],
+  usart:[['SR',0,'Mixed',544,'Status flags. Clearing sequences differ by flag; consult the referenced section.'],['DR',4,'RW',547,'Transmit data when written; receive data when read.'],['BRR',8,'RW',547,'Baud divider based on the actual peripheral clock and OVER8 setting.'],['CR1',12,'RW',547,'UE bit 13 enables the USART; TE bit 3 and RE bit 2 enable transmit and receive.'],['CR2',16,'RW',550,'Stop bits, synchronous clock and related configuration.'],['CR3',20,'RW',551,'DMA requests, flow control and error interrupt control.'],['GTPR',24,'RW',553,'Guard time and prescaler.']],
+  i2c:[['CR1',0,'RW',489,'PE bit 0 enables the peripheral; configure timing before enabling.'],['CR2',4,'RW',491,'FREQ describes the actual APB1 frequency in MHz.'],['OAR1',8,'RW',493,'Own address configuration.'],['OAR2',12,'RW',493,'Second own address configuration.'],['DR',16,'RW',494,'I2C transmit/receive byte.'],['SR1',20,'Mixed',494,'Status and errors; several flags need specific clearing sequences.'],['SR2',24,'RO',497,'Bus and device status. Reading after SR1 can clear ADDR.'],['CCR',28,'RW',499,'Clock timing derived from PCLK1.'],['TRISE',32,'RW',500,'Maximum rise-time timing field.']],
+  spi:[['CR1',0,'RW',598,'Master, baud prescaler, CPOL/CPHA and SPE enable bit 6.'],['CR2',4,'RW',600,'DMA, interrupts and related control.'],['SR',8,'Mixed',601,'Status; use documented read/clear sequences.'],['DR',12,'RW',602,'Transmit and receive data.'],['CRCPR',16,'RW',603,'CRC polynomial.']],
+  exti:[['IMR',0,'RW',209,'Bit n unmasks interrupt line n.'],['EMR',4,'RW',209,'Event mask, separate from interrupt mask.'],['RTSR',8,'RW',210,'Rising-edge trigger selection.'],['FTSR',12,'RW',210,'Falling-edge trigger selection.'],['SWIER',16,'RW',211,'Software interrupt/event trigger.'],['PR',20,'W1C',211,'Write 1 to clear only the handled pending bit. Do not use |=.']],
+  syscfg:[['MEMRMP',0,'RW',140,'Memory remap control.'],['PMC',4,'RW',141,'Peripheral mode configuration.'],['EXTICR1',8,'RW',141,'EXTI0-3 GPIO source selection; CMSIS EXTICR[0].'],['EXTICR2',12,'RW',142,'EXTI4-7 GPIO source selection; CMSIS EXTICR[1].'],['EXTICR3',16,'RW',143,'EXTI8-11 GPIO source selection; CMSIS EXTICR[2].'],['EXTICR4',20,'RW',143,'EXTI12-15 GPIO source selection; CMSIS EXTICR[3].']],
+  timer:[['CR1',0,'RW',350,'Counter enable and counting mode.'],['DIER',12,'RW',355,'DMA/interrupt enables.'],['SR',16,'Mixed',356,'Timer status flags.'],['CNT',36,'RW',364,'Current counter value.'],['PSC',40,'RW',364,'Timer prescaler.'],['ARR',44,'RW',364,'Auto-reload period.']],
+  rcc:[['CR',0,'RW',102,'Oscillator and PLL control.'],['PLLCFGR',4,'RW',104,'PLL dividers and source.'],['CFGR',8,'RW',106,'System clock switch and AHB/APB prescalers.'],['AHB1RSTR',16,'RW',112,'Peripheral reset controls, not clock enables.'],['AHB2RSTR',20,'RW',113,'AHB2 peripheral reset.'],['APB1RSTR',32,'RW',114,'APB1 peripheral reset.'],['APB2RSTR',36,'RW',116,'APB2 peripheral reset.'],['AHB1ENR',48,'RW',118,'GPIO, DMA and CRC clock gates.'],['AHB2ENR',52,'RW',119,'USB OTG FS clock gate.'],['APB1ENR',64,'RW',119,'APB1 peripheral clock gates.'],['APB2ENR',68,'RW',122,'APB2 peripheral clock gates.']]
+};
+const PERIPHERALS = [];
+function peripheral(id,bus,base,bit,group,note='',symbol=null) {
+  const p={id,name:id,kind:'peripheral',bus,base,bit,group,note,symbol:symbol || (bit===null?null:id+'EN')};
+  PERIPHERALS.push(p); return p;
+}
+for(const [letter,port] of Object.entries(PORTS)) peripheral('GPIO'+letter,'AHB1',port.base,port.bit,'gpio',letter==='E'?'GPIOE exists in the device register map, but no PE pins are bonded out on the F411RE LQFP64 package.':letter==='D'?'Only PD2 is bonded out on this LQFP64 package.':letter==='H'?'Only PH0/PH1 are bonded out; oscillator and solder-bridge configuration can reserve them.':'');
+peripheral('RCC','AHB1',RCC_BASE,null,'rcc','RCC is memory-mapped on AHB1. It has no RCC self-enable bit. Clock source setup is separate from peripheral gating.');
+peripheral('DMA1','AHB1',0x40026000,21,'dma','A bus master. Stream/channel routing must match the selected peripheral request.');
+peripheral('DMA2','AHB1',0x40026400,22,'dma','A bus master. Stream/channel routing must match the selected peripheral request.');
+peripheral('CRC','AHB1',0x40023000,12,'crc');
+for(const [id,base,bit] of [['TIM2',0x40000000,0],['TIM3',0x40000400,1],['TIM4',0x40000800,2],['TIM5',0x40000C00,3]]) peripheral(id,'APB1',base,bit,'timer','Timer kernel frequency is not always PCLK1. Prescaler and TIMPRE rules matter (RM0383 clock tree).');
+peripheral('WWDG','APB1',0x40002C00,11,'watchdog','Window watchdog. This app only generates its clock gate, not watchdog activation.','WWDGEN');
+peripheral('SPI2','APB1',0x40003800,14,'spi');
+peripheral('SPI3','APB1',0x40003C00,15,'spi');
+peripheral('USART2','APB1',0x40004400,17,'usart','PA2/PA3 (AF7) connect to ST-LINK virtual COM with the stock SB13/SB14 routing.');
+peripheral('I2C1','APB1',0x40005400,21,'i2c','PB8/PB9 (AF4) are D15/D14. GPIOB and I2C1 both need their clocks enabled.');
+peripheral('I2C2','APB1',0x40005800,22,'i2c');
+peripheral('I2C3','APB1',0x40005C00,23,'i2c');
+peripheral('PWR','APB1',0x40007000,28,'power','Power-interface registers; not the board power supply.');
+peripheral('TIM1','APB2',0x40010000,0,'advancedTimer','Advanced timer. Only the base and RCC gate are indexed here.');
+peripheral('USART1','APB2',0x40011000,4,'usart','PA9/PA10 (AF7), D8/D2, are a useful separate telemetry UART.');
+peripheral('USART6','APB2',0x40011400,5,'usart','PC6/PC7 (AF8) are one possible TX/RX pair.');
+peripheral('ADC1','APB2',0x40012000,8,'adc','Configure the pin as analog, not an alternate function. Conversion clocks/timing are separate.');
+peripheral('SDIO','APB2',0x40012C00,11,'sdio');
+peripheral('SPI1','APB2',0x40013000,12,'spi','PA5/PA6/PA7 (AF5). PA5 shares LD2; using SCK can flicker the LED.');
+peripheral('SPI4','APB2',0x40013400,13,'spi');
+peripheral('SYSCFG','APB2',0x40013800,14,'syscfg','Selects which GPIO port feeds an EXTI line. This is not the GPIO input mode control.');
+peripheral('EXTI','APB2',0x40013C00,null,'exti','EXTI has no separate RCC enable bit. GPIO source routing needs the SYSCFG clock; interrupt delivery also needs the NVIC.');
+peripheral('TIM9','APB2',0x40014000,16,'smallTimer');
+peripheral('TIM10','APB2',0x40014400,17,'smallTimer');
+peripheral('TIM11','APB2',0x40014800,18,'smallTimer');
+peripheral('SPI5','APB2',0x40015000,20,'spi');
+peripheral('USB_OTG_FS','AHB2',0x50000000,7,'usb','PA11/PA12 (AF10), not the board\'s CN1 ST-LINK USB connector. Requires a valid USB 48 MHz clock.','OTGFSEN');
+const P = Object.fromEntries(PERIPHERALS.map(p=>[p.id,p]));
+const PACKAGE = {
+ A:[14,15,16,17,20,21,22,23,41,42,43,44,45,46,49,50],
+ B:[26,27,28,55,56,57,58,59,61,62,29,null,33,34,35,36],
+ C:[8,9,10,11,24,25,37,38,39,40,51,52,53,2,3,4],
+ D:[null,null,54], H:[5,6]
+};
+const HEADERS = {
+ CN5:['PA9','PC7','PB6','PA7','PA6','PA5','GND','AVDD','PB9','PB8'],
+ CN9:['PA3','PA2','PA10','PB3','PB5','PB4','PB10','PA8'],
+ CN8:['PA0','PA1','PA4','PB0','PC1','PC0'],
+ CN7:['PC10','PC11','PC12','PD2','VDD','E5V','BOOT0','GND','NC','NC','NC','IOREF','PA13','NRST','PA14','3V3','PA15','5V','GND','GND','PB7','GND','PC13','VIN','PC14','NC','PC15','PA0','PH0','PA1','PH1','PA4','VBAT','PB0','PC2','PC1','PC3','PC0'],
+ CN10:['PC9','PC8','PB8','PC6','PB9','PC5','AVDD','U5V','GND','NC','PA5','PA12','PA6','PA11','PA7','PB12','PB6','NC','PC7','GND','PA9','PB2','PA8','PB1','PB10','PB15','PB4','PB14','PB5','PB13','PB3','AGND','PA10','PC4','PA2','NC','PA3','NC']
+};
+const ARDUINO = {PA3:'D0',PA2:'D1',PA10:'D2',PB3:'D3',PB5:'D4',PB4:'D5',PB10:'D6',PA8:'D7',PA9:'D8',PC7:'D9',PB6:'D10',PA7:'D11',PA6:'D12',PA5:'D13',PB9:'D14',PB8:'D15',PA0:'A0',PA1:'A1',PA4:'A2',PB0:'A3',PC1:'A4*',PC0:'A5*'};
+const ALT = {};
+function af(pin,peripheral,signal,number) { (ALT[pin] ||= []).push({peripheral,signal,number}); }
+for(const [pin,per,signal,num] of [
+ ['PA2','USART2','TX',7],['PA3','USART2','RX',7],['PA9','USART1','TX',7],['PA10','USART1','RX',7],
+ ['PB6','USART1','TX',7],['PB7','USART1','RX',7],['PC6','USART6','TX',8],['PC7','USART6','RX',8],
+ ['PB6','I2C1','SCL',4],['PB7','I2C1','SDA',4],['PB8','I2C1','SCL',4],['PB9','I2C1','SDA',4],
+ ['PB10','I2C2','SCL',4],['PB3','I2C2','SDA',9],['PA8','I2C3','SCL',4],['PC9','I2C3','SDA',4],
+ ['PA5','SPI1','SCK',5],['PA6','SPI1','MISO',5],['PA7','SPI1','MOSI',5],['PA4','SPI1','NSS',5],
+ ['PB3','SPI1','SCK',5],['PB4','SPI1','MISO',5],['PB5','SPI1','MOSI',5],
+ ['PB13','SPI2','SCK',5],['PB14','SPI2','MISO',5],['PB15','SPI2','MOSI',5],
+ ['PC10','SPI3','SCK',6],['PC11','SPI3','MISO',6],['PC12','SPI3','MOSI',6],
+ ['PA11','USB_OTG_FS','DM',10],['PA12','USB_OTG_FS','DP',10],
+ ['PA0','TIM2','CH1',1],['PA1','TIM2','CH2',1],['PB10','TIM2','CH3',1],
+ ['PB4','TIM3','CH1',2],['PB5','TIM3','CH2',2],['PB6','TIM4','CH1',2],['PB7','TIM4','CH2',2],['PB8','TIM4','CH3',2],['PB9','TIM4','CH4',2]
+]) af(pin,per,signal,num);
+const PINS = [];
+for(const [letter,numbers] of Object.entries(PACKAGE)) numbers.forEach((packagePin,n)=>{
+ if(!packagePin) return;
+ const id=`P${letter}${n}`;
+ const headers=[];
+ for(const [cn,pins] of Object.entries(HEADERS)) pins.forEach((p,i)=>{if(p===id) headers.push(`${cn}-${i+1}`);});
+ let note='';
+ if(id==='PC13') note='B1 USER via SB17. Read the raw level first; confirm the pressed polarity on your board. Do not configure this connected button pin as a driven output.';
+ if(id==='PA5') note='LD2 and D13 share this pin. High turns the user LED on; low turns it off. SPI1 SCK also uses PA5.';
+ if(['PA13','PA14'].includes(id)) note='Used by ST-LINK SWD. Changing this pin can disconnect the debugger. Keep it reserved unless intentionally reclaiming debug pins.';
+ if(['PA2','PA3'].includes(id)) note='Stock ST-LINK virtual COM routing uses these pins. Check SB13/SB14 and SB62/SB63 before attaching another driver.';
+ if(['PB3','PB4','PA15'].includes(id)) note='Debug/trace alternate functions may occupy this pin after reset or when trace is enabled.';
+ if(['PH0','PH1'].includes(id)) note='HSE oscillator pins. ST-LINK MCO/crystal/solder-bridge routing can reserve them; do not repurpose while used as a clock source.';
+ if(['PC14','PC15'].includes(id)) note='LSE oscillator pins. Availability depends on the crystal and solder bridges. PC13-PC15 have special output restrictions.';
+ if(['PC0','PC1','PB8','PB9'].includes(id)) note+=' A4/A5 and CN7-36/38 depend on solder bridges. This view uses PC1/PC0 for the analog-header route; D14/D15 remain PB9/PB8.';
+ PINS.push({id,name:id,kind:'pin',pin:id,n,port:letter,packagePin,headers,arduino:ARDUINO[id]||'',base:PORTS[letter].base,bus:'AHB1',bit:PORTS[letter].bit,group:'gpio',note,alts:ALT[id]||[]});
+});
+const PIN = Object.fromEntries(PINS.map(p=>[p.id,p]));
+const BOARD = [
+ {id:'B1',name:'B1 USER button',kind:'board',pin:'PC13',note:'B1 reaches PC13 through solder bridge SB17. Polling needs only GPIOC. An EXTI interrupt adds SYSCFG routing and NVIC setup.'},
+ {id:'LD2',name:'LD2 user LED',kind:'board',pin:'PA5',note:'Active-high green LED on PA5 / D13. Prefer BSRR to change this output without disturbing other pins.'},
+ {id:'B2',name:'B2 RESET button',kind:'special',signal:'NRST',note:'B2 asserts the dedicated active-low NRST reset input (LQFP64 pin 7). It is not a GPIO, has no PIN mask, and requires no RCC clock gate.'},
+ {id:'CN1',name:'CN1 ST-LINK USB',kind:'special',signal:'ST-LINK/V2-1',note:'The mini-B connector belongs to the separate ST-LINK debugger, not the target STM32F411 USB peripheral. It provides programming/debug, virtual COM and board power subject to jumper configuration.'},
+ {id:'CN2',name:'CN2 SWD links',kind:'special',signal:'PA13 / PA14',note:'CN2 jumpers connect ST-LINK SWDIO/SWCLK to the target. PA13 and PA14 use AF0 for SWD. Retain them for debugging; normal firmware does not initialize them as general GPIO.'},
+ {id:'LD1',name:'LD1 COM status',kind:'special',signal:'ST-LINK domain',note:'Communication status LED controlled by the separate ST-LINK MCU. It is not a user LED on the target STM32F411. No target GPIO or RCC mask applies.'},
+ {id:'LD3',name:'LD3 power LED',kind:'special',signal:'+5 V power',note:'Indicates board +5 V power. Not controlled by a target GPIO; no RCC clock-enable bit applies.'},
+ {id:'JP6',name:'JP6 IDD jumper',kind:'special',signal:'Target VDD',note:'The target supply-current measurement link. Removing it breaks the target VDD path unless an ammeter completes the circuit. No GPIO register controls it.'},
+ {id:'CN6',name:'CN6 power header',kind:'special',signal:'Power / reset',note:'Pins 1-8: NC, IOREF, NRST, 3V3, 5V, GND, GND, VIN. These are not a numbered GPIO port. Verify the board power scheme before connecting external supplies.'},
+ {id:'U5',name:'U5 STM32F411RE',kind:'special',signal:'Cortex-M4 / LQFP64',note:'Your target MCU. The package has 50 GPIO pins; PB11 and all PE pins are not bonded out. Use the bus map for peripheral register blocks, or the pin index for package/header connections.'}
+];
+const ITEMS = Object.fromEntries([...BOARD,...PINS,...PERIPHERALS].map(x=>[x.id,x]));
+const REFERENCES = {
+ gpio:[['rm',38,'Peripheral boundary addresses'],['rm',118,'6.3.9 AHB1 clock enables'],['rm',158,'8.4 GPIO registers'],['ds',36,'LQFP64 package'],['um',59,'Table 29: ST morpho connectors']],
+ board:[['um',24,'7.6 LEDs and 7.7 buttons'],['um',28,'Table 10: SB17 and board links'],['um',44,'Table 16: Arduino connectors']],
+ bus:[['rm',36,'2.1 System architecture'],['rm',38,'2.3 Memory map'],['rm',119,'AHB2 and APB1 gates'],['rm',122,'APB2 gates']],
+ af:[['ds',47,'Table 9: alternate-function mapping'],['rm',162,'GPIO alternate-function registers']],
+ exti:[['rm',143,'7.2.6 SYSCFG_EXTICR4'],['rm',203,'Interrupt vector table'],['rm',209,'10.3 EXTI registers']]
+};
+</script>
+<script>'use strict';
+const $ = id => document.getElementById(id);
+const esc = value => String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const hex = (n,width=8) => '0x'+(n>>>0).toString(16).toUpperCase().padStart(width,'0');
+const state={id:'B1',view:'board',detail:'registers',reg:'IDR',mode:'input',alt:'',interrupt:false,style:'cmsis',zoom:1,simHigh:false};
+let currentRows=[], toastTimer;
+function icon(name){return ICONS[name]||'';}
+function icons(root=document){root.querySelectorAll('[data-icon]').forEach(el=>el.innerHTML=icon(el.dataset.icon));}
+function selected(){return ITEMS[state.id]||ITEMS.B1;}
+function selectedPin(){const item=selected();return PIN[item.pin||item.id]||null;}
+function selectedPeripheral(){const pin=selectedPin();return pin?P['GPIO'+pin.port]:(selected().kind==='peripheral'?selected():null);}
+function selectedAlt(){return selectedPin()?.alts.find(a=>`${a.peripheral}:${a.signal}`===state.alt)||null;}
+function activeId(id){const p=selectedPin();return id===state.id || (p && id===p.id);}
+function source(doc,page,label){const d=DOCS[doc];return `<a class="source-link" href="${d.url}#page=${page}" target="_blank" rel="noopener">${esc(d.name)} / p. ${page} / ${esc(label)} ${icon('ArrowUpRight')}</a>`;}
+function sources(refs){return refs.map(r=>source(...r)).join('');}
+function toast(message){$('toast').textContent=message;$('toast').classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('visible'),2400);}
+function choose(id,register){
+ if(!ITEMS[id]) return;
+ state.id=id;state.alt='';state.interrupt=false;state.mode=id==='LD2'?'output':'input';
+ state.reg=register||((PIN[id]||ITEMS[id].pin)?(id==='LD2'?'BSRR':'IDR'):(REGS[ITEMS[id].group]?.[0]?.[0]||''));
+ state.simHigh=false;hideTooltip();render();
+ try{history.replaceState(null,'','#'+encodeURIComponent(id));}catch{}
+}
+function navDescription(item){const pin=PIN[item.pin||item.id];return pin?`${pin.id} / GPIO${pin.port} / AHB1`:item.bus?`${item.bus} / ${hex(item.base)}`:item.signal;}
+function searchMatches(item,query){
+ if(!query) return {match:true};
+ const q=query.toLowerCase().replace(/\s+/g,'');
+ const pin=PIN[item.pin||item.id];const per=pin?P['GPIO'+pin.port]:item;
+ const terms=[item.id,item.name,item.signal,item.bus,hex(item.base||pin?.base||0),pin?.id,pin?.arduino,...(pin?.headers||[]),...(pin?.alts||[]).flatMap(a=>[a.peripheral,a.signal,`${a.peripheral}_${a.signal}`]),per.symbol,per.bus&&'RCC_'+BUSES[per.bus].reg];
+ if(terms.filter(Boolean).some(t=>t.toLowerCase().replace(/\s+/g,'').includes(q))) return {match:true};
+ const regMatch=(REGS[per.group]||[]).find(r=>[`${per.id}_${r[0]}`,`${per.id}->${r[0]}`,r[0],hex(per.base+r[1])].some(t=>t.toLowerCase().includes(q)));
+ if(regMatch) return {match:true,reg:regMatch[0]};
+ if(per.bit!==null&&per.bus&&hex(RCC_BASE+BUSES[per.bus].offset).toLowerCase()===q) return {match:true};
+ return {match:false};
+}
+function renderNav(){
+ const q=$('search').value.trim();const category=$('category').value;
+ let groups;
+ if(q||category!=='all'){
+  let list=[...BOARD,...PERIPHERALS,...PINS].filter(i=>(category==='all'||(category==='board'?['board','special'].includes(i.kind):i.kind===category))&&searchMatches(i,q).match);
+  if(q) list.sort((a,b)=>Number(b.id.toLowerCase()===q.toLowerCase())-Number(a.id.toLowerCase()===q.toLowerCase()));
+  groups=[['Results',list]];
+ }else groups=[['On the board',BOARD],['GPIO ports',PERIPHERALS.filter(p=>p.group==='gpio')],['APB1 peripherals',PERIPHERALS.filter(p=>p.bus==='APB1')],['APB2 peripherals',PERIPHERALS.filter(p=>p.bus==='APB2')],['AHB peripherals',PERIPHERALS.filter(p=>p.group!=='gpio'&&p.bus.startsWith('AHB'))]];
+ const count=groups.reduce((n,g)=>n+g[1].length,0);$('result-count').textContent=`${count} ${q?'matches':'items'}`;$('clear-search').hidden=!q;
+ $('item-list').innerHTML=count?groups.filter(g=>g[1].length).map(([title,items])=>`<div class="nav-group">${esc(title)}</div>${items.map(i=>`<button class="nav-item ${state.id===i.id?'active':''}" data-select="${i.id}" ${searchMatches(i,q).reg?`data-register="${searchMatches(i,q).reg}"`:''} aria-current="${state.id===i.id?'true':'false'}"><span class="nav-dot" ${i.bus?`style="background:${BUSES[i.bus].color}"`:''}></span><span><span class="nav-name">${esc(i.name)}</span><span class="nav-caption">${esc(navDescription(i))}</span></span></button>`).join('')}`).join(''):'<p class="empty">No indexed match. Try PC13, GPIOC, USART2, D13, CN7-23 or 0x40020810.</p>';
+}
+function svgHit(id,contents,label='',extra=''){
+ return `<g class="hit ${activeId(id)?'selected':''}" data-select="${id}" tabindex="0" role="button" aria-label="${esc(label||ITEMS[id]?.name||id)}" ${extra}>${contents}<title>${esc(label||ITEMS[id]?.name||id)}</title></g>`;
+}
+function pinHole(cn,index,x,y,label='',anchor='start'){
+ const id=HEADERS[cn][index];const n=index+1;const item=PIN[id];
+ const content=`<circle class="socket" cx="${x}" cy="${y}" r="5.5"/><rect x="${x-8}" y="${y-9}" width="16" height="18" fill="transparent"/>${label?`<text x="${x+(anchor==='end'?-14:14)}" y="${y+4}" text-anchor="${anchor}" class="label">${esc(label)}</text>`:''}`;
+ return item?svgHit(id,content,`${cn} pin ${n}: ${id}${item.arduino?' / '+item.arduino:''}`,`data-connector="${cn}-${n}"`):`<g><circle cx="${x}" cy="${y}" r="4.5" fill="#c5cfd3"/><title>${cn}-${n}: ${id}; not GPIO</title></g>`;
+}
+function drawBoard(){
+ let s=`<svg class="map-svg board-svg" viewBox="0 0 600 745" role="group" aria-label="Interactive functional top view of the NUCLEO-F411RE"><defs><pattern id="dots" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".7" fill="#dbe5e8"/></pattern></defs><rect width="600" height="745" fill="url(#dots)"/><rect x="95" y="38" width="410" height="688" rx="18" fill="#fff" stroke="#adbec4" stroke-width="1.5"/><path d="M96 240 H504" stroke="#adbfc5" stroke-dasharray="5 5"/><text x="112" y="222" class="sub">ST-LINK / separate debugger MCU</text><text x="280" y="705" text-anchor="middle" class="label">NUCLEO-F411RE</text><text x="280" y="721" text-anchor="middle" class="sub">MB1136 / functional layout</text>`;
+ for(const [x,y] of [[111,53],[489,53],[111,709],[489,709]]) s+=`<circle cx="${x}" cy="${y}" r="6" fill="#f6f8f9" stroke="#bdcbd0"/>`;
+ s+=svgHit('CN1','<rect class="outline" x="268" y="25" width="75" height="56" rx="4"/><rect x="278" y="28" width="55" height="16" rx="2" fill="#d9e3e6"/><text x="306" y="62" text-anchor="middle" class="label">CN1 USB</text>');
+ s+=`<path d="M306 81 V115" stroke="#c6d3d7"/><rect x="273" y="116" width="66" height="69" fill="#364e54" rx="3"/><text x="306" y="146" text-anchor="middle" style="fill:white;font-size:11px">ST-LINK</text><text x="306" y="162" text-anchor="middle" style="fill:#d3e3e6;font-size:10px">V2-1</text>`;
+ s+=svgHit('CN2','<rect class="outline" x="178" y="121" width="53" height="62" rx="4"/><text x="204" y="115" text-anchor="middle" class="label">CN2</text><rect x="190" y="131" width="9" height="38" rx="2" fill="#4d6267"/><rect x="210" y="131" width="9" height="38" rx="2" fill="#4d6267"/>');
+ s+=svgHit('LD1','<rect class="outline" x="389" y="117" width="64" height="52" rx="4"/><circle cx="406" cy="136" r="5" fill="#b94652"/><circle cx="436" cy="136" r="5" fill="#3a9474"/><text x="421" y="159" text-anchor="middle" class="label">LD1 COM</text>');
+ s+=svgHit('B1','<rect class="outline" x="194" y="267" width="70" height="49" rx="5"/><circle cx="229" cy="291" r="16" fill="#367aa8"/><circle cx="229" cy="291" r="11" fill="#4e93c1"/><text x="229" y="257" text-anchor="middle" class="label">B1 USER</text><text x="229" y="333" text-anchor="middle" class="sub">PC13</text>');
+ s+=svgHit('B2','<rect class="outline" x="336" y="267" width="70" height="49" rx="5"/><circle cx="371" cy="291" r="16" fill="#39454a"/><text x="371" y="257" text-anchor="middle" class="label">B2 RESET</text><text x="371" y="333" text-anchor="middle" class="sub">NRST</text>');
+ s+=svgHit('JP6','<rect class="outline" x="268" y="368" width="61" height="32" rx="3"/><circle cx="281" cy="384" r="4" fill="#344a50"/><circle cx="316" cy="384" r="4" fill="#344a50"/><path d="M282 384 H315" stroke="#4c6c72" stroke-width="5"/><text x="298" y="359" text-anchor="middle" class="sub">JP6 IDD</text>');
+ s+=svgHit('LD3','<rect class="outline" x="271" y="405" width="35" height="35" rx="3"/><rect x="281" y="411" width="15" height="8" fill="#b8434c"/><text x="288" y="434" text-anchor="middle" class="sub">LD3</text>');
+ s+=svgHit('LD2','<rect class="outline" x="320" y="405" width="53" height="35" rx="4"/><rect x="327" y="414" width="10" height="9" fill="#32a26f"/><text x="355" y="424" text-anchor="middle" class="sub">LD2</text><text x="350" y="477" text-anchor="middle" class="sub">PA5</text>');
+ s+=`<rect x="103" y="342" width="32" height="350" rx="3" fill="#edf2f3"/><rect x="465" y="342" width="32" height="350" rx="3" fill="#edf2f3"/><text x="119" y="333" text-anchor="middle" class="label">CN7</text><text x="481" y="333" text-anchor="middle" class="label">CN10</text>`;
+ for(let row=0;row<19;row++){for(let col=0;col<2;col++){s+=pinHole('CN7',row*2+col,111+col*16,354+row*18);s+=pinHole('CN10',row*2+col,473+col*16,354+row*18);}}
+ s+=`<text x="88" y="358" text-anchor="end" class="micro">1</text><text x="88" y="682" text-anchor="end" class="micro">37</text><text x="510" y="358" class="micro">2</text><text x="510" y="682" class="micro">38</text><text x="163" y="350" class="label">CN6</text>`;
+ s+=svgHit('CN6',`<rect class="outline" x="157" y="358" width="48" height="160" rx="3"/>${['NC','IOREF','NRST','3V3','5V','GND','GND','VIN'].map((label,i)=>`<circle cx="171" cy="${370+i*19}" r="4" fill="#b5c4c9"/><text x="207" y="${374+i*19}" class="micro">${label}</text>`).join('')}`);
+ s+=`<text x="170" y="550" text-anchor="middle" class="label">CN8</text><rect x="159" y="557" width="24" height="132" rx="3" fill="#edf2f3"/>`;
+ for(let i=0;i<6;i++)s+=pinHole('CN8',i,171,570+i*20,`A${i}${i>3?'*':''}`,'start');
+ s+=`<text x="422" y="344" text-anchor="middle" class="label">CN5</text><rect x="413" y="350" width="22" height="190" rx="3" fill="#edf2f3"/>`;
+ for(let row=0;row<10;row++){let idx=9-row;const label=ARDUINO[HEADERS.CN5[idx]]||HEADERS.CN5[idx];s+=pinHole('CN5',idx,424,363+row*18.3,label,'end');}
+ s+=`<text x="424" y="558" text-anchor="middle" class="label">CN9</text><rect x="413" y="566" width="22" height="132" rx="3" fill="#edf2f3"/>`;
+ for(let row=0;row<8;row++){let idx=7-row;s+=pinHole('CN9',idx,424,574+row*16.5,ARDUINO[HEADERS.CN9[idx]],'end');}
+ for(let n=0;n<10;n++){let t=264+n*8.7;s+=`<path d="M${t} 504v-9 M${t} 591v9 M254 ${514+n*7.4}h-9 M359 ${514+n*7.4}h9" stroke="#9babaf" stroke-width="4"/>`;}
+ s+=svgHit('U5','<rect class="outline" x="254" y="504" width="105" height="88" rx="3"/><circle cx="265" cy="514" r="3" fill="#9dadaf"/><text x="306" y="535" text-anchor="middle" class="label">STM32</text><text x="306" y="554" text-anchor="middle" class="label">F411RE</text><text x="306" y="577" text-anchor="middle" class="sub">U5 / LQFP64</text>');
+ const sp=selectedPin();
+ if(sp?.id==='PC13')s+=`<path d="M229 316V338 H253 V442 H300 V496" fill="none" stroke="#087d73" stroke-width="2" stroke-dasharray="4 3" pointer-events="none"/><rect x="270" y="446" width="65" height="22" rx="3" fill="#e2f3eb"/><text x="302" y="461" text-anchor="middle" class="sub" style="fill:#076a5c">GPIOC.13</text>`;
+ if(sp?.id==='PA5')s+=`<path d="M347 440V457 H370 V488 H332 V498" fill="none" stroke="#087d73" stroke-width="2" stroke-dasharray="4 3" pointer-events="none"/>`;
+ s+='</svg>';
+ $('map-area').innerHTML=s;$('map-caption').innerHTML='Board position is schematic, not to scale. <code>A4/A5*</code> depend on solder bridges. Connector pin numbers and GPIO numbers are different.';
+}
+function drawBuses(){
+ const rows=['AHB1','APB1','APB2','AHB2'];let y=115;
+ let s='<svg class="map-svg bus-svg" viewBox="0 0 610 1090" role="group" aria-label="STM32F411 peripheral buses and register blocks"><rect x="229" y="17" width="152" height="43" rx="5" fill="#203f45"/><text x="305" y="44" text-anchor="middle" style="fill:#fff;font-size:14px">Cortex-M4 / S-bus</text><path d="M305 60V78 H36 V1050" stroke="#b9cbd0" stroke-width="2" fill="none"/><text x="306" y="95" text-anchor="middle" class="sub">AHB multi-layer interconnect</text>';
+ for(const bus of rows){const b=BUSES[bus],items=PERIPHERALS.filter(p=>p.bus===bus);const height=52+Math.ceil(items.length/3)*54;
+ s+=`<path d="M36 ${y+16}H59" stroke="${b.color}" stroke-width="2"/><rect x="60" y="${y}" width="534" height="${height}" rx="6" fill="#fff" stroke="#d6e0e3"/><rect x="60" y="${y}" width="4" height="${height}" rx="2" fill="${b.color}"/><text x="77" y="${y+25}" class="label" style="fill:${b.color}">${bus}</text><text x="139" y="${y+25}" class="sub">${bus.startsWith('APB')?'AHB-to-APB bridge / ':''}${b.clock}</text>`;
+ items.forEach((item,i)=>{const x=77+(i%3)*172,yy=y+42+Math.floor(i/3)*54;const label=item.id==='USB_OTG_FS'?'USB OTG FS':item.id;s+=svgHit(item.id,`<rect class="outline" x="${x}" y="${yy}" width="162" height="44" rx="4"/><text x="${x+10}" y="${yy+18}" class="label">${label}</text><text x="${x+10}" y="${yy+34}" class="sub">${hex(item.base)}</text>`);});
+ y+=height+20;
+ }
+ s+='</svg>';$('map-area').innerHTML=s;$('map-caption').innerHTML='Indexed blocks only. RTC, IWDG, flash-interface and I2S extension registers are outside this catalog. Clock-gate bits are not bus addresses.';
+ const svg=$('map-area').querySelector('svg');svg.setAttribute('viewBox',`0 0 610 ${y+2}`);
+}
+function drawPins(){
+ $('map-area').innerHTML=`<div class="pins-grid">${Object.keys(PORTS).map(letter=>`<div class="port-row"><h3>GPIO${letter}</h3><div class="port-pins">${Array.from({length:16},(_,n)=>{const p=PIN[`P${letter}${n}`];if(!p)return'';return `<button class="pin-tile ${activeId(p.id)?'selected':''}" data-select="${p.id}"><strong>${p.id}</strong><small>${p.arduino||'LQFP '+p.packagePin}</small></button>`;}).join('')||'<span class="empty-port">Not bonded in LQFP64</span>'}</div></div>`).join('')}</div>`;
+ $('map-caption').innerHTML='50 package GPIO pins. PB11 is not bonded. PD2 is the only GPIOD pin; PH0/PH1 may be reserved for HSE. AF shortcuts are curated, not exhaustive.';
+}
+function applyZoom(){const svg=$('map-area').querySelector('svg');if(svg){svg.style.width=(state.zoom*100)+'%';svg.style.maxWidth=state.zoom>1?'none':'';} $('zoom-in').disabled=state.view==='pins'||state.zoom>=2;$('zoom-out').disabled=state.view==='pins'||state.zoom<=.85;$('zoom-fit').disabled=state.view==='pins';}
+function renderMap(){
+ for(const b of document.querySelectorAll('[data-view]')) b.setAttribute('aria-selected',String(b.dataset.view===state.view));
+ $('map-area').setAttribute('aria-labelledby','tab-'+state.view);
+ const labels={board:['Board connections','Top view / functional layout'],bus:['Peripheral bus map','F411-specific register blocks'],pins:['GPIO pin index','LQFP64 / 50 bonded GPIOs']};
+ $('map-title').textContent=labels[state.view][0];$('map-subtitle').textContent=labels[state.view][1];
+ if(state.view==='board')drawBoard();else if(state.view==='bus')drawBuses();else drawPins();applyZoom();
+}
+function drawRoute(){
+ const item=selected(),pin=selectedPin(),per=selectedPeripheral(),alt=selectedAlt();
+ if(!per){$('route-area').innerHTML=`<div class="bus-blurb"><strong>${esc(item.signal)}</strong><p class="plain-note">${esc(item.note)}</p></div>`;$('route-note').textContent='No target peripheral clock-enable bit applies to this board item.';return;}
+ const width=Math.max(270,$('route-area').clientWidth||500),mobile=width<470;const nW=mobile?Math.min(210,width-32):Math.min(145,(width-40)/3),x1=mobile?(width-nW)/2:8,x2=mobile?x1:(width-nW)/2,x3=mobile?x1:width-nW-8;
+ const height=mobile?400:265;
+ const y1=mobile?10:18,y2=mobile?87:18,y3=mobile?164:18;
+ const b=BUSES[alt?P[alt.peripheral].bus:per.bus];
+ let s=`<svg class="route-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="Register access and clock gating for ${esc(item.name)}"><defs><marker id="arrow-access" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#087d73"/></marker><marker id="arrow-clock" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#a54b16"/></marker></defs>`;
+ function box(x,y,title,sub,fill='#f5f8f9'){return `<rect x="${x}" y="${y}" width="${nW}" height="52" rx="5" fill="${fill}" stroke="#cadadf"/><text x="${x+nW/2}" y="${y+22}" text-anchor="middle">${esc(title)}</text><text x="${x+nW/2}" y="${y+40}" text-anchor="middle" class="route-small">${esc(sub)}</text>`;}
+ const last=alt?P[alt.peripheral]:per;
+ s+=box(x1,y1,'Cortex-M4','S-bus / AHB matrix')+box(x2,y2,last.bus,last.bus.startsWith('APB')?'AHB-to-APB bridge':'AHB peripheral bus')+box(x3,y3,last.id,hex(last.base),'#eaf6f0');
+ if(mobile)s+=`<path d="M${width/2} 62V84 M${width/2} 139V161" stroke="#087d73" fill="none" stroke-width="2" marker-end="url(#arrow-access)"/>`;
+ else s+=`<path d="M${x1+nW} 44H${x2-3} M${x2+nW} 44H${x3-3}" stroke="#087d73" fill="none" stroke-width="2" marker-end="url(#arrow-access)"/>`;
+ const gy=mobile?251:117,gx=mobile?x1:x1,gateWidth=mobile?nW:width*.57;
+ if(last.bit!==null){s+=`<rect x="${gx}" y="${gy}" width="${gateWidth}" height="57" rx="5" fill="#fff7ec" stroke="#dfcbb0"/><text x="${gx+12}" y="${gy+22}">RCC_${BUSES[last.bus].reg}</text><text x="${gx+12}" y="${gy+42}" class="route-small">${last.symbol} / bit ${last.bit} / ${hex(2**last.bit)}</text>`;
+ if(mobile)s+=`<path d="M${gx+nW} ${gy+28}H${width-10}V190H${x3+nW+2}" fill="none" stroke="#a54b16" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrow-clock)"/>`;
+ else s+=`<path d="M${gx+gateWidth} ${gy+28}H${x3+nW/2}V73" fill="none" stroke="#a54b16" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrow-clock)"/>`;
+ }else s+=`<text x="${gx}" y="${gy+22}" class="route-small">No independent RCC enable bit for ${last.id}.</text>`;
+ const sy=mobile?335:204;
+ let bottom=pin?`${pin.id} / LQFP64 pin ${pin.packagePin} / ${state.interrupt?'EXTI'+pin.n:alt?alt.signal:state.reg||'IDR'}`:`Base address is not the enable-register address.`;
+ s+=`<text x="${width/2}" y="${sy}" text-anchor="middle">${esc(bottom)}</text>`;
+ if(alt)s+=`<text x="${width/2}" y="${sy+22}" text-anchor="middle" class="route-small">Also enable GPIO${pin.port} on AHB1 (bit ${pin.bit}) and select AF${alt.number}.</text>`;
+ else if(state.interrupt)s+=`<text x="${width/2}" y="${sy+22}" text-anchor="middle" class="route-small">GPIO input &gt; SYSCFG mux &gt; EXTI${pin.n} &gt; NVIC</text>`;
+ s+='</svg>';$('route-area').innerHTML=s;
+ $('route-note').textContent=alt?'Two independent clock gates: the GPIO port remains on AHB1, while the alternate-function peripheral has its own bus and enable bit. The AF mux connects the peripheral signal to the pin.':state.interrupt?'Polling needs no EXTI or NVIC. For interrupts, enable SYSCFG on APB2, route the GPIO to its EXTI line, choose edges, unmask the line and enable its NVIC IRQ. EXTI has no independent RCC clock gate.':pin?`RCC bit ${pin.bit} enables the entire GPIO${pin.port} port, not pin ${pin.n}. Pin ${pin.n} uses data bit ${pin.n}; MODER uses bits ${pin.n*2+1}:${pin.n*2}. Clock gating is separate from the signal path.`:last.note||'Peripheral access uses its mapped bus. RCC gating enables the block clock; it does not configure the peripheral or choose a system clock frequency.';
+}
+function renderOptions(){
+ const pin=selectedPin();if(!pin){$('selection-options').innerHTML='';return;}
+ let html=`<div class="option-row"><label for="signal-select">Signal</label><select id="signal-select"><option value="">GPIO${pin.port}.${pin.n}</option>${pin.alts.map(a=>`<option value="${a.peripheral}:${a.signal}" ${state.alt===a.peripheral+':'+a.signal?'selected':''}>${a.peripheral} ${a.signal} / AF${a.number}</option>`).join('')}</select></div>`;
+ if(!state.alt){html+=`<div class="option-row"><label for="mode-select">Use</label><select id="mode-select"><option value="input" ${state.mode==='input'?'selected':''}>Input / polling</option><option value="output" ${state.mode==='output'?'selected':''} ${pin.id==='PC13'?'disabled':''}>Output / push-pull</option><option value="analog" ${state.mode==='analog'?'selected':''}>Analog mode</option><option value="interrupt" ${state.interrupt?'selected':''}>Input / EXTI interrupt</option></select></div>`;}
+ $('selection-options').innerHTML=html;
+ $('signal-select').addEventListener('change',e=>{state.alt=e.target.value;state.interrupt=false;state.mode=state.alt?'alternate':'input';state.reg=state.alt?(pin.n<8?'AFRL':'AFRH'):'IDR';renderInspector();drawRoute();});
+ $('mode-select')?.addEventListener('change',e=>{state.mode=e.target.value;state.interrupt=state.mode==='interrupt';state.reg=state.mode==='output'?'BSRR':state.mode==='analog'?'MODER':'IDR';renderInspector();drawRoute();});
+}
+function renderInspector(){
+ const item=selected(),pin=selectedPin(),per=selectedPeripheral();
+ $('selection-kind').textContent=pin?(item.kind==='board'?'Board component / GPIO':'Package pin / GPIO'):item.kind==='special'?'Board infrastructure':'Peripheral register block';
+ $('selection-title').textContent=item.name;
+ $('selection-subtitle').textContent=pin?`${pin.id} / GPIO${pin.port} / LQFP64 pin ${pin.packagePin}`:per?hex(per.base):item.signal;
+ $('selection-tags').innerHTML=pin?`<span class="tag green">AHB1</span><span class="tag">${pin.headers[0]||'Package pin'}</span>${pin.arduino?`<span class="tag">${pin.arduino}</span>`:''}`:per?`<span class="tag green">${per.bus}</span><span class="tag">${per.bit===null?'No direct gate':per.symbol+' ['+per.bit+']'}</span>`:'<span class="tag">Not a GPIO clock gate</span>';
+ renderOptions();
+ document.querySelectorAll('[data-detail]').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.detail===state.detail)));
+ $('detail-body').setAttribute('aria-labelledby','detail-'+state.detail);
+ if(state.detail==='registers')renderRegisters();else if(state.detail==='code')renderCode();else renderNotes();
+ icons($('detail-body'));
+}
+function clockHtml(per){
+ if(!per)return'';
+ if(per.bit===null)return `<div class="clock-box"><strong>No independent RCC enable bit</strong><p>${esc(per.note)}</p></div>`;
+ const bus=BUSES[per.bus];return `<div class="clock-box"><div class="clock-top"><strong>RCC_${bus.reg}</strong><span>bit ${per.bit}</span></div><code>#define ${per.symbol} (1U &lt;&lt; ${per.bit})</code><div class="clock-address"><span>${hex(RCC_BASE+bus.offset)}</span><span>mask ${hex(2**per.bit)}</span></div></div>`;
+}
+function rowsFor(){
+ const per=selectedPeripheral();return (REGS[per?.group]||[]).map(r=>({name:r[0],offset:r[1],access:r[2],page:r[3],note:r[4],base:per.base,address:per.base+r[1],owner:per.id}));
+}
+function renderRegisters(){
+ const item=selected(),pin=selectedPin(),per=selectedPeripheral(),alt=selectedAlt();
+ if(!per){$('detail-body').innerHTML=`<h3>${esc(item.signal)}</h3><p class="plain-note">${esc(item.note)}</p>${item.id==='CN2'?'<div class="detail-section pin-route-links"><button data-select="PA13">PA13 / SWDIO</button><button data-select="PA14">PA14 / SWCLK</button></div>':''}<div class="detail-section">${sources(REFERENCES.board)}</div>`;return;}
+ currentRows=rowsFor();if(!currentRows.find(r=>r.name===state.reg))state.reg=currentRows[0]?.name||'';
+ let html=clockHtml(per);
+ if(alt)html+=`<div class="detail-section"><h3>Peripheral clock also required</h3>${clockHtml(P[alt.peripheral])}</div>`;
+ if(state.interrupt)html+=`<div class="detail-section"><h3>Interrupt routing also required</h3>${clockHtml(P.SYSCFG)}<p class="plain-note">SYSCFG_EXTICR${Math.floor(pin.n/4)+1}, bits ${(pin.n%4)*4+3}:${(pin.n%4)*4} = ${PORTS[pin.port].bit}. EXTI line ${pin.n}; ${irqName(pin.n)}.</p></div>`;
+ if(currentRows.length){html+=`<section class="detail-section"><h3>${per.id} register addresses</h3><table class="register-table"><thead><tr><th>Register</th><th>Offset</th><th>Access</th><th>Address</th></tr></thead><tbody>${currentRows.map(r=>`<tr class="${state.reg===r.name?'chosen':''}"><td><button data-reg="${r.name}">${r.name}</button></td><td>+${hex(r.offset,2)}</td><td class="access-type">${r.access}</td><td>${hex(r.address)}</td></tr>`).join('')}</tbody></table></section><div id="register-focus"></div>`;}
+ else html+=`<p class="plain-note">Base and RCC gate are indexed. Detailed ${per.id} registers are not included in this version.</p>${source('rm',38,'Peripheral address map')}`;
+ if(pin?.id==='PC13')html+='<p class="mini-alert">B1 is an input. Do not drive PC13 against the connected switch. Pressed polarity and debounce are board/application details, not RCC bits.</p>';
+ $('detail-body').innerHTML=html;
+ document.querySelectorAll('[data-reg]').forEach(b=>b.addEventListener('click',()=>{state.reg=b.dataset.reg;renderRegisters();drawRoute();}));
+ if(currentRows.length)renderRegisterFocus();
+}
+function fieldFor(reg,pin){
+ if(!pin)return null;
+ if(['MODER','OSPEEDR','PUPDR'].includes(reg))return {shift:pin.n*2,width:2,name:`${reg}${pin.n}`,value:reg==='MODER'?(state.alt?2:state.mode==='output'?1:state.mode==='analog'?3:0):0};
+ if(reg==='AFRL'||reg==='AFRH'){const inHalf=(reg==='AFRL')===(pin.n<8);return inHalf?{shift:(pin.n%8)*4,width:4,name:`AF${pin.n}`,value:selectedAlt()?.number||0}:null;}
+ return {shift:pin.n,width:1,name:reg==='BSRR'?`BS${pin.n}`:`${reg}${pin.n}`,value:reg==='IDR'?(state.simHigh?1:0):1};
+}
+function renderRegisterFocus(){
+ const row=currentRows.find(r=>r.name===state.reg),pin=selectedPin();if(!row)return;
+ const field=fieldFor(row.name,pin);const fieldMask=field?((2**field.width-1)*2**field.shift)>>>0:0;
+ let html=`<section class="detail-section"><div class="bit-header"><strong>${row.owner}_${row.name}</strong><code>${row.access}</code></div><div class="address-formula"><span>${row.owner} base</span><strong>${hex(row.base)}</strong><span>+ ${row.name} offset</span><strong>${hex(row.offset,2)}</strong><span>= Register address</span><strong class="answer">${hex(row.address)}</strong></div><p class="register-note">${esc(row.note)}</p>`;
+ if(field){
+ const simulated=(field.value*2**field.shift)>>>0;
+ html+=`<div class="bit-header"><span>${field.name} [${field.shift+field.width-1}${field.width>1?':'+field.shift:''}]</span><code>Field mask ${hex(fieldMask)}</code></div><div class="bit-grid" aria-label="32-bit ${row.name} field illustration, not a live register">`;
+ for(let i=31;i>=0;i--){if(i===15)html+='<div class="bit-break" aria-hidden="true"></div>';const inField=i>=field.shift&&i<field.shift+field.width;const reserved=['IDR','ODR','OTYPER'].includes(row.name)&&i>15;const val=reserved?'-':((simulated>>>i)&1);html+=`<button class="bit ${inField?'focus-bit':''} ${reserved?'reserved':''}" data-bit="${i}" aria-label="${row.name} bit ${i}${inField?', selected pin field':''}${reserved?', reserved':''}"><span>${i}</span><b>${val}</b></button>`;}
+ html+=`</div><p class="bit-explainer" id="bit-explainer">Highlighted: ${field.name}. Other bits are zeroed in this illustration, not asserted hardware/reset values.</p><code class="formula-chip">${field.width===1?`(1U &lt;&lt; ${field.shift})`:`(${hex(2**field.width-1,1)}U &lt;&lt; ${field.shift})`} = ${hex(fieldMask)}${field.width>1?`<br>Field value ${field.value}: ${hex(simulated)}`:''}</code>`;
+ if(row.name==='IDR')html+=`<div class="simulation"><span class="sim-title">LOCAL BIT ILLUSTRATION / not hardware</span><div class="simulation-row"><button id="toggle-level">Set ${pin.id} ${state.simHigh?'low':'high'}</button><output>${pin.id} = ${state.simHigh?'1':'0'} / ${hex(simulated)}</output></div></div>`;
+ if(row.name==='BSRR')html+=`<p class="plain-note">Reset ${pin.id} with bit ${pin.n+16}: <code>(1U &lt;&lt; ${pin.n+16}) = ${hex(2**(pin.n+16))}</code>. Write BSRR with <code>=</code>, not <code>|=</code>.</p>`;
+ }
+ html+=source('rm',row.page,`${row.owner}_${row.name}`)+'</section>';
+ $('register-focus').innerHTML=html;
+ document.querySelectorAll('[data-bit]').forEach(b=>b.addEventListener('click',()=>{
+ const i=Number(b.dataset.bit);let text;
+ if(['MODER','PUPDR','OSPEEDR'].includes(row.name))text=`Bit ${i} belongs to pin ${Math.floor(i/2)}: ${row.name}[${Math.floor(i/2)*2+1}:${Math.floor(i/2)*2}]. Each pin uses two bits.`;
+ else if(row.name.startsWith('AFR'))text=`Bit ${i} belongs to pin ${Math.floor(i/4)+(row.name==='AFRH'?8:0)}. AF selection uses four bits per pin.`;
+ else if(row.name==='BSRR')text=`Bit ${i}: ${i<16?'set':'reset'} output pin ${i%16} with a write of 1.`;
+ else if(row.name==='LCKR'&&i===16)text='Bit 16 is LCKK, the lock key. Follow the documented write/read sequence; this is not a pin bit.';
+ else text=i>15?`Bit ${i} is reserved for this register.`:`Bit ${i} corresponds to pin ${i}, not the RCC port-enable index.`;
+ $('bit-explainer').textContent=text;
+ }));
+ $('toggle-level')?.addEventListener('click',()=>{state.simHigh=!state.simHigh;renderRegisterFocus();});
+}
+function irqNumber(n){return n<5?6+n:n<10?23:40;}
+function irqName(n){return n<5?`EXTI${n}`:n<10?'EXTI9_5':'EXTI15_10';}
+function codeFor(){
+ const item=selected(),pin=selectedPin(),per=selectedPeripheral(),alt=selectedAlt(),raw=state.style==='raw';
+ if(!per)return `/* ${item.name}\n * ${item.note}\n * No target GPIO clock-enable code applies.\n */`;
+ const header=raw?'#include <stdint.h>\n#define MMIO32(addr) (*(volatile uint32_t *)(addr))\n':'#include "stm32f411xe.h"\n';
+ if(!pin){if(per.bit===null)return `${header}\n/* ${per.note} */\n/* Use the register table for base + offset lookup. */`;
+ const b=BUSES[per.bus],reg=raw?`MMIO32(${hex(RCC_BASE+b.offset)}U)`:`RCC->${b.reg}`;
+ return `${header}\n#define ${per.symbol} (1U << ${per.bit})\n\nvoid enable_${per.id.toLowerCase()}_clock(void)\n{\n    ${reg} |= ${per.symbol};\n    (void)${reg}; /* clock-enable readback */\n}\n\n/* ${per.id} base: ${hex(per.base)}\n * This enables only the bus clock.\n * Pin mux, baud/timing, interrupts and peripheral\n * activation require separate configuration.\n */`;
+ }
+ const port='GPIO'+pin.port,n=pin.n,shift=2*n,symbol=port+'EN',mask='PIN'+n;
+ const expr=(owner,reg,offset)=>raw?`MMIO32(${hex((owner==='RCC'?RCC_BASE:owner==='SYSCFG'?P.SYSCFG.base:owner==='EXTI'?P.EXTI.base:PORTS[owner.slice(-1)].base)+offset)}U)`:`${owner}->${reg}`;
+ const gate=expr('RCC','AHB1ENR',0x30),moder=expr(port,'MODER',0),pull=expr(port,'PUPDR',0x0c),idr=expr(port,'IDR',0x10),bsrr=expr(port,'BSRR',0x18);
+ let c=(state.interrupt&&raw?'#include "stm32f411xe.h" /* NVIC helpers / IRQ names */\n':'')+header+`\n#define ${symbol} (1U << ${pin.bit})\n#define ${mask}   (1U << ${n})\n\n/* ${item.name}: ${pin.id}, package pin ${pin.packagePin}.\n * Port clock bit ${pin.bit}; pin data bit ${n}.\n * MODER field is [${shift+1}:${shift}].\n */\nvoid ${pin.id.toLowerCase()}_init(void)\n{\n    ${gate} |= ${symbol};\n    (void)${gate}; /* clock-enable readback */\n`;
+ if(state.mode==='output'&&!alt){
+ c+=`\n    ${bsrr} = (1U << ${n+16}); /* latch low first */\n    ${expr(port,'OTYPER',4)} &= ~${mask}; /* push-pull */\n    ${expr(port,'OSPEEDR',8)} &= ~(3U << ${shift}); /* low speed */\n    ${pull} &= ~(3U << ${shift}); /* no pull */\n    ${moder} =\n        (${moder} & ~(3U << ${shift})) | (1U << ${shift});\n}\n\nvoid ${pin.id.toLowerCase()}_high(void) { ${bsrr} = ${mask}; }\nvoid ${pin.id.toLowerCase()}_low(void)  { ${bsrr} = (1U << ${n+16}); }\n`;
+ }else if(alt){
+ const ap=P[alt.peripheral],ab=BUSES[ap.bus],areg=expr('RCC',ab.reg,ab.offset),afOffset=n<8?0x20:0x24,af=expr(port,`AFR[${n<8?0:1}]`,afOffset),afShift=(n%8)*4;
+ c+=`\n    ${areg} |= (1U << ${ap.bit}); /* ${ap.symbol} */\n    (void)${areg};\n    ${af} =\n        (${af} & ~(0xFU << ${afShift})) | (${alt.number}U << ${afShift});\n`;
+ if(ap.group==='i2c') c+=`    ${expr(port,'OTYPER',4)} |= ${mask}; /* open-drain */\n    /* External pull-ups to 3.3 V are required. */\n`;
+ c+=`    ${moder} =\n        (${moder} & ~(3U << ${shift})) | (2U << ${shift});\n}\n\n/* ${alt.peripheral}_${alt.signal}, AF${alt.number}.\n * Single-pin mux and clock setup ONLY.\n * Configure the other signals, electrical settings\n * and peripheral timing/control before use.\n */\n`;
+ }else if(state.mode==='analog'){
+ c+=`\n    ${pull} &= ~(3U << ${shift});\n    ${moder} |= (3U << ${shift}); /* analog mode */\n}\n\n/* Analog mode alone does not select or start an ADC. */\n`;
+ }else{
+ c+=`\n    ${moder} &= ~(3U << ${shift}); /* 00 = input */\n    ${pull} &= ~(3U << ${shift}); /* use external bias */\n`;
+ if(state.interrupt){const irq=irqName(n),extIdx=Math.floor(n/4),extShift=(n%4)*4,route=expr('SYSCFG',`EXTICR[${extIdx}]`,8+4*extIdx),imr=expr('EXTI','IMR',0),pending=expr('EXTI','PR',20);
+ c+=`\n    ${expr('RCC','APB2ENR',0x44)} |= (1U << 14); /* SYSCFGEN */\n    (void)${expr('RCC','APB2ENR',0x44)};\n    ${imr} &= ~${mask}; /* mask while configuring */\n    ${route} =\n        (${route} & ~(0xFU << ${extShift})) | (${pin.bit}U << ${extShift});\n    /* Both edges; no assumption about pressed polarity. */\n    ${expr('EXTI','RTSR',8)} |= ${mask};\n    ${expr('EXTI','FTSR',12)} |= ${mask};\n    ${pending} = ${mask}; /* write 1 to clear, not |= */\n    ${imr} |= ${mask};\n    NVIC_SetPriority(${irq}_IRQn, 5U);\n    NVIC_EnableIRQ(${irq}_IRQn);\n}\n\nvoid ${irq}_IRQHandler(void)\n{\n    if (${pending} & ${mask}) {\n        ${pending} = ${mask};\n        /* Record an event; debounce outside this ISR. */\n    }\n    /* If sharing this IRQ, handle its other active lines too. */\n}\n`;
+ }else c+='}\n';
+ c+=`\nuint32_t ${pin.id.toLowerCase()}_is_high(void)\n{\n    return (${idr} & ${mask}) != 0U;\n}\n\n/* High is a voltage level, not necessarily "pressed".\n * Confirm external bias/polarity on the actual board.\n */\n`;
+ }
+ return c;
+}
+function renderCode(){
+ $('detail-body').innerHTML=`<div class="code-toolbar"><select id="code-style" aria-label="Code naming style"><option value="cmsis" ${state.style==='cmsis'?'selected':''}>CMSIS register names</option><option value="raw" ${state.style==='raw'?'selected':''}>Explicit addresses</option></select><div class="code-actions"><button id="copy-code" class="icon-button" aria-label="Copy C code" title="Copy C code" data-icon="Copy"></button><button id="download-code" class="icon-button" aria-label="Download C snippet" title="Download C snippet" data-icon="Download"></button></div></div><pre><code id="code-text">${esc(codeFor())}</code></pre><p class="plain-note">Generated reference snippet, not flashed or hardware-tested. Integrate with your startup, clock setup and application. CMSIS headers must target STM32F411xE. Read-modify-write configuration assumes no competing writer.</p>`;
+ $('code-style').addEventListener('change',e=>{state.style=e.target.value;renderCode();icons($('detail-body'));});
+ $('copy-code').addEventListener('click',()=>copyCode(codeFor()));
+ $('download-code').addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([codeFor()],{type:'text/plain'}));const a=document.createElement('a');a.href=url;a.download=state.id.toLowerCase()+'-'+(state.interrupt?'exti':state.alt?'af':state.mode)+'.c';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('C snippet downloaded');});
+ icons($('detail-body'));
+}
+async function copyCode(code){
+ try{if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(code);toast('Code copied');return;}}catch{}
+ const t=document.createElement('textarea');t.value=code;t.style.position='fixed';t.style.top='-1000px';document.body.append(t);t.select();let ok=false;try{ok=document.execCommand('copy');}catch{}t.remove();
+ if(ok)toast('Code copied');else{$('detail-body').insertAdjacentHTML('beforeend','<label class="plain-note">Clipboard blocked by this browser. Select the code below:<textarea class="copy-fallback" aria-label="Code to copy"></textarea></label>');const area=document.querySelector('.copy-fallback');area.value=code;area.focus();area.select();toast('Clipboard unavailable; code selected');}
+}
+function renderNotes(){
+ const item=selected(),pin=selectedPin(),per=selectedPeripheral();
+ let html=`<h3>${pin?'Board & package connection':'What this block does'}</h3><p class="plain-note">${esc(item.note||per?.note||'Peripheral register block in the STM32F411 memory map.')}</p>`;
+ if(pin){html+=`<p class="plain-note">${esc(pin.note)}</p><div class="detail-section"><h3>Header positions</h3><div class="pin-route-links">${pin.headers.map(h=>`<span class="access-label">${h}</span>`).join('')}</div><p class="plain-note">GPIO name ${pin.id}, package lead ${pin.packagePin}, and connector position are three different numbering systems.</p></div>`;
+ if(pin.alts.length)html+=`<div class="detail-section"><h3>Indexed alternate functions</h3><div class="pin-route-links">${pin.alts.map(a=>`<button data-select="${a.peripheral}">${a.peripheral}_${a.signal} / AF${a.number}</button>`).join('')}</div><p class="plain-note">Selected common routes, not the complete alternate-function matrix. Use the Signal selector to generate single-pin mux setup.</p></div>`;
+ html+=`<div class="detail-section"><h3>Three different masks</h3><ul class="note-list"><li><code>(1U &lt;&lt; ${pin.bit})</code> enables GPIO${pin.port} in RCC_AHB1ENR.</li><li><code>(1U &lt;&lt; ${pin.n})</code> addresses the pin in IDR/ODR and the BSRR set half.</li><li><code>(3U &lt;&lt; ${pin.n*2})</code> selects both bits of MODER${pin.n}.</li></ul></div>`;
+ if(state.interrupt)html+=`<div class="detail-section"><h3>Interrupt path</h3><p class="plain-note">${pin.id} feeds EXTI${pin.n} through SYSCFG_EXTICR${Math.floor(pin.n/4)+1}. Port encoding ${pin.bit} is written to bits ${(pin.n%4)*4+3}:${(pin.n%4)*4}. Only one GPIO port can feed a given EXTI line at a time.</p><p class="plain-note">${irqName(pin.n)} has external IRQ number ${irqNumber(pin.n)}. Vector-table slot = IRQ + 16 = ${irqNumber(pin.n)+16}; vector byte offset = ${hex((irqNumber(pin.n)+16)*4,3)}. NVIC uses IRQ number, not pin number.</p>${sources(REFERENCES.exti)}</div>`;
+ html+=`<div class="detail-section"><h3>Source trail</h3>${sources(REFERENCES.gpio)}${item.kind==='board'?sources(REFERENCES.board):''}${pin.alts.length?sources(REFERENCES.af):''}</div>`;
+ }else if(per){html+=`<div class="detail-section"><h3>Bus clock</h3><p class="plain-note">${per.bus}: ${BUSES[per.bus].clock}. ${BUSES[per.bus].limit}. These are device limits, not your live clock settings.</p></div><div class="detail-section"><h3>Source trail</h3>${sources(REFERENCES.bus)}${per.bit!==null?source('rm',BUSES[per.bus].page,'RCC clock-enable register'):''}</div>`;
+ }else html+=`<div class="detail-section"><h3>Source trail</h3>${sources(REFERENCES.board)}</div>`;
+ $('detail-body').innerHTML=html;
+}
+function tooltipText(id,connector){
+ const item=ITEMS[id];if(!item)return'';const pin=PIN[item.pin||id],per=pin?P['GPIO'+pin.port]:item;
+ if(pin)return `<strong>${esc(item.name)} ${item.kind==='board'?' / '+pin.id:''}</strong><div>${esc(connector||pin.headers[0]||'')} / LQFP64 lead ${pin.packagePin}</div><code>AHB1 &gt; GPIO${pin.port} &gt; ${pin.id}</code><div><code>RCC_AHB1ENR / ${per.symbol} [${pin.bit}]<br>(1U &lt;&lt; ${pin.bit}) = ${hex(2**pin.bit)}<br>PIN${pin.n} = (1U &lt;&lt; ${pin.n})</code></div><div class="tooltip-note">${hex(pin.base+0x10)} / GPIO${pin.port}_IDR<br>Click to keep the register details open.</div>`;
+ return `<strong>${esc(item.name)}</strong>${item.kind==='peripheral'?`<code>${item.bus} / ${hex(item.base)}</code><div>${item.bit===null?'No independent RCC enable bit':`RCC_${BUSES[item.bus].reg} / ${item.symbol} [${item.bit}]`}</div>`:`<div>${esc(item.signal)}</div><div class="tooltip-note">${esc(item.note)}</div>`}`;
+}
+function showTooltip(target,event){
+ const tooltip=$('tooltip');const text=tooltipText(target.dataset.select,target.dataset.connector);if(!text)return;tooltip.innerHTML=text;tooltip.hidden=false;
+ const r=target.getBoundingClientRect(),x=event?.clientX??r.right,y=event?.clientY??r.top;const w=tooltip.offsetWidth,h=tooltip.offsetHeight;
+ tooltip.style.left=Math.max(8,Math.min(x+15,innerWidth-w-8))+'px';tooltip.style.top=Math.max(8,Math.min(y+15,innerHeight-h-8))+'px';
+}
+function hideTooltip(){$('tooltip').hidden=true;}
+function render(){renderNav();renderMap();renderInspector();drawRoute();}
+document.addEventListener('click',e=>{const target=e.target.closest('[data-select]');if(target){choose(target.dataset.select,target.dataset.register);}});
+document.addEventListener('keydown',e=>{const target=e.target.closest('.hit[data-select]');if(target&&['Enter',' '].includes(e.key)){e.preventDefault();choose(target.dataset.select);}if(e.key==='Escape')hideTooltip();});
+document.addEventListener('pointerover',e=>{const target=e.target.closest('.hit[data-select],.pin-tile[data-select]');if(target&&e.pointerType!=='touch')showTooltip(target,e);});
+document.addEventListener('pointermove',e=>{const target=e.target.closest('.hit[data-select],.pin-tile[data-select]');if(target&&e.pointerType!=='touch')showTooltip(target,e);});
+document.addEventListener('pointerout',e=>{if(e.target.closest('.hit[data-select],.pin-tile[data-select]'))hideTooltip();});
+document.addEventListener('focusin',e=>{const target=e.target.closest('.hit[data-select]');if(target)showTooltip(target);});
+document.addEventListener('focusout',hideTooltip);
+window.addEventListener('scroll',hideTooltip,true);
+$('search').addEventListener('input',renderNav);$('category').addEventListener('change',renderNav);$('clear-search').addEventListener('click',()=>{$('search').value='';renderNav();$('search').focus();});
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{state.view=b.dataset.view;state.zoom=1;renderMap();hideTooltip();}));
+document.querySelectorAll('[data-detail]').forEach(b=>b.addEventListener('click',()=>{state.detail=b.dataset.detail;renderInspector();}));
+function bindTabKeys(selector){const tabs=[...document.querySelectorAll(selector)];tabs.forEach((b,i)=>b.addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();let next=e.key==='Home'?0:e.key==='End'?tabs.length-1:(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;tabs[next].focus();tabs[next].click();}}));}
+bindTabKeys('[data-view]');bindTabKeys('[data-detail]');
+$('zoom-in').addEventListener('click',()=>{state.zoom=Math.min(2,state.zoom+.2);applyZoom();});$('zoom-out').addEventListener('click',()=>{state.zoom=Math.max(.85,state.zoom-.2);applyZoom();});$('zoom-fit').addEventListener('click',()=>{state.zoom=1;applyZoom();});
+$('sources-content').innerHTML=`<p>A focused reference for the <strong>STM32F411RE, LQFP64, NUCLEO-64 MB1136</strong>. Based on your supplied documents, not a generic STM32F4 pinout.</p>${sources([['um',24,'LEDs and buttons'],['um',44,'Arduino connectors'],['um',59,'ST morpho connectors'],['ds',36,'LQFP64 pinout'],['ds',47,'Alternate functions'],['rm',38,'Memory map'],['rm',118,'Clock gates'],['rm',158,'GPIO registers']])}<h3>What is included</h3><p>${PINS.length} bonded GPIOs, ${PERIPHERALS.length} peripheral blocks, common AF routes, GPIO bitfields, EXTI routing and generated C snippets. The board drawing is a functional SVG, not a PCB manufacturing drawing.</p><h3>Boundaries</h3><p>No device connection, register reads, flashing or network calls. Bit values are illustrations. The AF catalog and peripheral register lists are intentionally partial. Source links need internet and may open newer online revisions; the page references describe your supplied revisions.</p><p>A4/A5, oscillator pins and ST-LINK routes depend on solder bridges. Check your board revision before rewiring. Generated code is reference material, not a complete peripheral driver or hardware-tested firmware.</p>`;
+$('help-button').addEventListener('click',()=>$('sources-dialog').showModal());$('close-sources').addEventListener('click',()=>$('sources-dialog').close());$('sources-dialog').addEventListener('click',e=>{if(e.target===$('sources-dialog')){const r=e.target.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)e.target.close();}});
+new ResizeObserver(()=>drawRoute()).observe($('route-area'));
+window.addEventListener('hashchange',()=>{const id=decodeURIComponent(location.hash.slice(1));if(ITEMS[id]&&state.id!==id)choose(id);});
+icons();const initial=decodeURIComponent(location.hash.slice(1));if(ITEMS[initial]){state.id=initial;state.mode=initial==='LD2'?'output':'input';}render();
+// Deterministic data/function access for offline verification; no hardware I/O.
+window.atlas={state,items:ITEMS,pins:PINS,peripherals:PERIPHERALS,codeFor,choose,hex,PORTS,REGS,HEADERS};
+</script>
+</body>
+</html>
