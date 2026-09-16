@@ -27,6 +27,7 @@ static void delay_cycles(volatile uint32_t count)
  */
 #define GPIOAEN 	(1U << 0)
 #define GPIOCEN 	(1U << 2)
+#define USART2EN	(1U << 17)
 
 #define PIN5	 	(1U<<5)
 #define PIN13	 	(1U<<13)
