@@ -1,10 +1,18 @@
-#include <stm32f4xx.h>
+
 #include <stdint.h>
+#include <stdio.h>
+#include <stm32f4xx.h>
 
 static void uart_set_baudrate(USART_TypeDef* USARTx, uint32_t PeriphClk, uint32_t BaudRate);
 static uint16_t compute_uart_bd(uint32_t PeriphClk, uint32_t BaudRate);
 void uart2_write(int ch);
 void uart2_tx_init();
+
+int __io_putchar(int ch)
+{
+	uart2_write(ch);
+	return ch;
+}
 
 static void delay_cycles(volatile uint32_t count)
 {
@@ -47,7 +55,7 @@ int main(void)
 
 	while(1)
 	{
-		uart2_write('A');
+		printf("Hello from STM32F4 UART. \n\r");
 	}
 }
 
@@ -83,7 +91,6 @@ void uart2_write(int ch)
 
 	// Write to transmit data register
 	USART2->DR = (ch & 0xFF);
-	while (!(USART2->SR & USART_SR_TC)) {}
 }
 
 static void uart_set_baudrate(USART_TypeDef* USARTx, uint32_t PeriphClk, uint32_t BaudRate)
