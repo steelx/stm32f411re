@@ -41,14 +41,6 @@ int __io_putchar(int ch)
 	return ch;
 }
 
-static void delay_cycles(volatile uint32_t count)
-{
-    while (count--) {
-        __asm("nop");
-    }
-}
-
-
 
 void uart2_tx_init()
 {
@@ -73,6 +65,51 @@ void uart2_tx_init()
 	// Set Transfer Direction & enable UART module
 	USART2->CR1 |= USART_CR1_TE;
 	USART2->CR1 |= USART_CR1_UE;
+}
+
+
+void uart2_rxtx_init()
+{
+	/**** Configure UART GPIO Pin ****/
+	RCC->AHB1ENR |= GPIOAEN;
+
+	/** Enable Alternate Function Mode **/
+	// GPIO Pin 2 --> MODER2  sets Bit 5:4 to [1:0] alternate function mode
+	// 3U = 0111b
+	GPIOA->MODER = (GPIOA->MODER & ~(3U << 4)) | (2U << 4);
+
+	// GPIO Pin 3 --> MODER3 PA3: bits 7:6 to [1:0]
+	GPIOA->MODER = (GPIOA->MODER & ~(3U << 6)) | (2U << 6);
+
+
+	// Set PA2 Mode to AF mode; AF7 Type [0 1 1 1] UART_TX
+	// 15u = 1111b negated 15U binary at 8th bit (1111 0000 1111 1111)
+	// 7U  = 0111b on the 8th Bit position
+	GPIOA->AFR[0] &= ~(15U << 8);
+	GPIOA->AFR[0] |= (7U << 8);
+
+	// Set PA3 to AF7 (UART_RX)
+	GPIOA->AFR[0] &= ~(15U << 12);
+	GPIOA->AFR[0] |= (7U << 12);
+
+
+	/**** Configure UART module ****/
+
+	RCC->APB1ENR |= UART2EN; // enable clock access to USART2
+	uart_set_baudrate(USART2, APB1_CLK, UART_BAUDERATE);
+
+	// Set Transfer Direction & enable UART module
+	USART2->CR1 |= (USART_CR1_TE | USART_CR1_RE);
+	USART2->CR1 |= USART_CR1_UE;
+}
+
+char uart2_read(void)
+{
+	// Make sure the Received data register is NOT empty
+	while (!(USART2->SR & USART_SR_RXNE)) {}
+
+	// Read data
+	return USART2->DR;
 }
 
 void uart2_write(int ch)

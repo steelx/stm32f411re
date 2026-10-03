@@ -1,0 +1,122 @@
+STM32F411RE + Fastbit IoT Connect Shield
+======================================
+
+BOARD DIFFERENCE AND REQUIRED JUMPERS
+The correct Fastbit_IOT_schematic.pdf connects A0/PA0 to ESP GPIO6 AT_RX,
+and A1/PA1 to ESP GPIO7 AT_TX. The video shows an F446RE using UART4.
+F411RE has NO UART4; PA0/PA1 cannot serve as UART data pins on this chip.
+PA9 is shield flash chip select, PA10 is OLED D/C, and PB6 is SD chip
+select. Therefore USART1 uses the otherwise unused PA15 and PB7.
+
+With power off, add these jumpers on a NUCLEO-F411RE MB1136:
+  CN7 pin 17 (PA15 TX) -> CN7 pin 28 (PA0 / shield A0 / ESP AT_RX)
+  CN7 pin 21 (PB7 RX)  -> CN7 pin 30 (PA1 / shield A1 / ESP AT_TX)
+Alternatively, the destination points are shield CN8 pin 1 (A0) and
+CN8 pin 2 (A1). Confirm connector orientation against your board labels.
+The code leaves PA0/PA1 high-impedance analog; no trace cuts are needed.
+Do not configure those pins as outputs or use PA1 for an ADC sensor.
+Debug using SWD, not JTAG: PA15 is now USART1 TX, rather than JTDI.
+
+CONFIGURATION
+USART1 TX/RX: PA15/PB7, AF7, 115200 baud, 8-N-1, no flow control.
+USART2 TX/RX: PA2/PA3, AF7, 115200 baud, 8-N-1, ST-LINK PC console.
+I2C1 SCL: PB8, AF4, Arduino D15 / CN5 pin 10.
+I2C1 SDA: PB9, AF4, Arduino D14 / CN5 pin 9.
+I2C1: open-drain, 100 kHz standard mode, 7-bit addressing.
+All peripheral access is polling; no interrupt or DMA setup is included.
+Shield D2 LED: PB0. PA5 is SPI SCK, so the old PA5 LED demo was changed.
+
+I2C HARDWARE
+The supplied five-page schematic does not show SCL/SDA pull-ups. Check
+your physical revision; if absent, add approximately 4.7 kohm from each
+line to 3.3 V for a short 100 kHz bus. Do not pull up to 5 V.
+Both lines should idle high. Internal weak pull-ups are disabled.
+HDC1080 and MPU6050 share I2C1. The shield OLED is SPI, not I2C.
+Initialization alone produces no clock pulses; a transfer must start first.
+
+POWER
+Use Nucleo ST-LINK USB with normal USB power selection for initial tests.
+The supplied manual warns against connecting both shield and host USB
+simultaneously. Shield USB is for ESP programming UART0, not USART2
+or the ESP AT command UART. The manual's alternative power instructions
+refer to VIN/E5V; these are not interchangeable labels. No change to
+power wiring or ESP firmware-download mode is required for this example.
+
+FILES AND CLOCKS
+Src/system_stm32f4xx.c: ST's installed CMSIS template supplies SystemInit,
+FPU/vector setup, SystemCoreClockUpdate and clock tables.
+Src/board_clock.c: selects internal 16 MHz HSI, AHB/APB1/APB2 divide by 1.
+Src/uart.c: pin setup, PCLK1/PCLK2 baud calculation, USART1/2 initialization,
+nonblocking receive/error clearing, byte writes, printf/getchar hooks.
+Src/i2c.c: PB8/PB9 open-drain AF4 setup and standard-mode timing.
+Src/main.c: initializes peripherals, prints banner and controls shield D2.
+Src/adc.c: missing include fixed; still an unused pin/clock exercise,
+not a complete ADC conversion driver. PA1 is occupied by ESP AT_TX.
+
+Expected registers:
+  SystemCoreClock = 16000000
+  USART1/2 BRR = 139 (0x8B), CR1 = 0x200C, CR2 = CR3 = 0
+  I2C1 CR2.FREQ = 16, CCR = 80, TRISE = 17, CR1.PE = 1
+Nominal UART rate is about 115108 baud, -0.08% divider error; physical
+HSI tolerance adds to that. Reinitialize timings if changing clocks later.
+
+BUILD AND TEST
+1. Refresh in CubeIDE. Close/reopen the project if settings remain cached.
+2. Project > Clean, then Build Project, using this project's Debug config.
+3. Select the new 001_MQTT_Pub-Sub Debug launch configuration, using SWD.
+   Old 2_GPIO_Output / 3_UART_Driver launch files target earlier projects.
+4. Open ST-LINK's COM port at 115200, 8-N-1, no flow control.
+5. Reset/run to see the banner. Send 1/0 to turn shield D2 on/off.
+   CR/LF are ignored, so Enter no longer reverses the LED command.
+
+REVIEW FINDINGS FIXED
+- USART1 assumed 100 MHz, while USART2 assumed 16 MHz. Both now use
+  the correct APB clocks, with an explicit common clock initialization.
+- main did not initialize USART1 and had no I2C initialization.
+- Startup called SystemInit but no implementation existed. A weak
+  undefined reference can link without providing valid startup code.
+- Build directories still pointed at 2_GPIO_Output; generated files
+  referred to 3_UART_Driver. Settings were fixed and builds regenerated.
+- Release lacked the CMSIS STM32F411xE symbol already present in Debug.
+- adc.c lacked the header declaring the peripheral registers.
+- Function declarations now use (void); byte-write APIs are exported.
+- Receive helpers clear UART errors and offer nonblocking access.
+- Pin choices now account for the actual IoT shield connections.
+
+VALIDATION AND LIMITS
+CubeIDE 2.2.0 clean Debug and Release builds completed with zero errors
+and zero warnings on 2026-10-03. Both produced 001_MQTT_Pub-Sub.elf.
+No board was flashed or electrically tested. Jumpers, I2C pull-ups, ESP
+firmware baud and sensor responses require bench verification.
+UART writes and the legacy blocking read helper can wait indefinitely.
+This is peripheral initialization and LED bring-up, not MQTT/OTA:
+no I2C transactions, ESP command parser or receive queue are included.
+Add interrupt/DMA buffering before sustained ESP traffic.
+This CMSIS project is not a drop-in replacement for the video's HAL SDK;
+that SDK needs a porting layer or a separate CubeMX/HAL project.
+Installed CMSIS include paths remain machine-specific, as before.
+Original edited source/settings copies: tmp/review/original.
+
+CUBEMX OPTION
+ST separated CubeMX from CubeIDE starting at version 2.0. For HAL work,
+use standalone CubeMX, select STM32F411RETx and STM32CubeIDE toolchain,
+generate into a separate folder, then import the generated project.
+Use the pins/settings above and SYS Debug = Serial Wire. Keep clocks
+at 16 MHz for an equivalent setup. Do not overlay HAL main/startup/system
+files on this project. Enable IRQs only when matching handlers exist.
+The failing generated CubeMX project was not supplied, so its separate
+build failure cannot be diagnosed from the files reviewed here.
+
+REFERENCES
+Correct local schematic: C:/Users/Ajinkya/Downloads/Fastbit_IOT_schematic.pdf
+Manual: C:/Users/Ajinkya/Downloads/UserManual_Fastbit_iot_shield.pdf
+Video sampled visually, including peripheral setup around 1-4 minutes;
+audio was not transcribed.
+F411 datasheet, alternate functions Table 9:
+https://www.st.com/resource/en/datasheet/stm32f411re.pdf
+F411 RM0383 register reference:
+https://www.st.com/resource/en/reference_manual/dm00119316.pdf
+Nucleo MB1136 connector mapping, UM1724:
+https://www.st.com/resource/en/user_manual/um1724-.pdf
+CubeIDE separation announcement:
+https://community.st.com/stm32cubeide-mcus-28/stm32cubeide-2-0-0-released-159542
