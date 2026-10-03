@@ -9,14 +9,14 @@
 #ifndef SH1106_H_
 #define SH1106_H_
 
-#include "stm32f4xx_hal.h"
+#include <stdint.h>
 #include <string.h>
 #include "fonts.h"
 
-// Select the communication interface.
-// Exactly one should be enabled (either by uncommenting here or via project defines).
-//#define SH1106_USE_I2C        // Use I2C transport for SH1106
-#define SH1106_USE_SPI        // Use SPI transport for SH1106
+// Communication interface selection.
+// The register-level project does not yet provide an SPI/I2C driver for the
+// display, so the transport layer is stubbed.
+#define SH1106_USE_STUB
 
 #define SH1106_WIDTH  128
 #define SH1106_HEIGHT 64

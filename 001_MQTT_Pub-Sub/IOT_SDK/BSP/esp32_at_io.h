@@ -9,13 +9,7 @@
 #define INC_ESP_AT_IO_H_
 
 /* Includes ------------------------------------------------------------------*/
-#include "main.h"
-
-
-#ifndef ESP32_UART_CONFIG
-  extern   UART_HandleTypeDef   huart4;
-  #define  ESP32_UART_HANDLE    &huart4
-#endif
+#include <stdint.h>
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/

@@ -3,165 +3,131 @@
  *
  * Created on: Dec 27, 2024
  * Author: Shreyas Acharya, BHARATI SOFTWARE
+ *
+ * Ported to the register-level STM32F411RE drivers in this project.
+ * The ESP32 AT interface is on USART1 (PA15 TX / PB7 RX).
  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "esp32_at_io.h"
-#include "main.h"
+#include "uart.h"
+#include "board_clock.h"
 #include <string.h>
 
 /* Private define ------------------------------------------------------------*/
-#define RING_BUFFER_SIZE (1024 * 10)
+#define RECV_NB_TIMEOUT_MS 200U
 
 /* Private typedef -----------------------------------------------------------*/
-typedef struct {
-  const uint8_t data [ RING_BUFFER_SIZE ];
-  uint16_t tail;
-  uint16_t head;
-} ring_buffer_t;
-
 /* Private variables ---------------------------------------------------------*/
-ring_buffer_t wifi_rx_buffer;
 
 /* Private function prototypes -----------------------------------------------*/
-static void esp32_io_error_handler(void);
+static int32_t esp32_io_recv_timeout(uint8_t *buffer, uint32_t length,
+                                     uint32_t timeout_ms);
 
 /* Exported functions -------------------------------------------------------*/
 
 /**
- * @brief  Initialize the ESP8266 UART interface with DMA and Idle Detection.
+ * @brief  Initialize the ESP32 UART interface.
  * @retval 0 on success, -1 otherwise.
  */
 int8_t esp32_io_init(void) {
-  HAL_Delay(2000);
-
-  wifi_rx_buffer.head = 0;
-  wifi_rx_buffer.tail = 0;
-
-  // Start UART in DMA mode with Idle line detection
-  if ( HAL_UARTEx_ReceiveToIdle_DMA(ESP32_UART_HANDLE, (uint8_t *)wifi_rx_buffer.data,
-                                    RING_BUFFER_SIZE) != HAL_OK ) {
-    return -1;
-  }
+  /* The host needs ~2 s before the ESP32 AT firmware is ready. */
+  board_delay_ms(2000);
   return 0;
 }
 
 /**
- * @brief  Deinitialize the ESP8266 UART interface.
+ * @brief  Deinitialize the ESP32 UART interface.
  * @retval None.
  */
 void esp32_io_deinit(void) {
-  HAL_UART_DMAStop(ESP32_UART_HANDLE);
-  HAL_UART_DeInit(ESP32_UART_HANDLE);
+  /* No action required for the register-level driver. */
 }
 
 /**
- * @brief  Send data to the ESP8266 module over UART.
- * @param  p_data: Pointer to the data buffer to send.
- * @param  length: Length of the data buffer.
+ * @brief  Reset the IO receive buffer state.
+ * @retval None.
+ */
+void io_buff_reset(void) {
+  /* Polling driver has no background buffer to reset. */
+}
+
+/**
+ * @brief  Restart UART DMA reception.
  * @retval 0 on success, -1 otherwise.
  */
-int8_t esp32_io_send(uint8_t *p_data, uint32_t length) {
-  if ( HAL_UART_Transmit(ESP32_UART_HANDLE, p_data, length, DEFAULT_TIME_OUT) !=
-       HAL_OK ) {
+int8_t uart_dma_restart(void) {
+  /* DMA is not used in this port. */
+  return 0;
+}
+
+/**
+ * @brief  Send data to the ESP32 module over UART.
+ * @param  Buffer: Pointer to the data buffer to send.
+ * @param  Length: Length of the data buffer.
+ * @retval 0 on success, -1 otherwise.
+ */
+int8_t esp32_io_send(uint8_t *Buffer, uint32_t Length) {
+  if (Buffer == NULL) {
     return -1;
+  }
+  for (uint32_t i = 0; i < Length; i++) {
+    uart1_write((int)Buffer[i]);
   }
   return 0;
 }
 
 /**
- * @brief  Receive data from the ESP8266 module over UART.
- * @param  buffer: Pointer to the buffer to store received data.
- * @param  length: Maximum length of the buffer.
+ * @brief  Receive data from the ESP32 module over UART (blocking).
+ * @param  Buffer: Pointer to the buffer to store received data.
+ * @param  Length: Maximum length of the buffer.
  * @retval Number of bytes received.
  */
-int32_t esp32_io_recv(uint8_t *buffer, uint32_t length) {
-  uint32_t read_data = 0;
-
-  while ( length-- ) {
-    uint32_t tick_start = HAL_GetTick();
-    do {
-      if ( wifi_rx_buffer.head != wifi_rx_buffer.tail ) {
-        *buffer++ = wifi_rx_buffer.data [ wifi_rx_buffer.head++ ];
-        read_data++;
-
-        if ( wifi_rx_buffer.head >= RING_BUFFER_SIZE ) {
-          wifi_rx_buffer.head = 0;
-        }
-        break;
-      }
-    } while ( (HAL_GetTick() - tick_start) < DEFAULT_TIME_OUT);
-  }
-  return read_data;
+int32_t esp32_io_recv(uint8_t *Buffer, uint32_t Length) {
+  return esp32_io_recv_timeout(Buffer, Length, DEFAULT_TIME_OUT);
 }
 
 /**
- * @brief  Non-blocking receive data from the ESP8266 module over UART.
+ * @brief  Non-blocking receive data from the ESP32 module over UART.
  * @param  buffer: Pointer to the buffer to store received data.
  * @param  length: Maximum length of the buffer.
  * @retval Number of bytes received.
  */
 int32_t esp32_io_recv_nb(uint8_t *buffer, uint32_t length) {
-  uint32_t read_data = 0;
-
-  while ( length-- ) {
-      uint32_t tick_start = HAL_GetTick();
-      do {
-        if ( wifi_rx_buffer.head != wifi_rx_buffer.tail ) {
-          *buffer++ = wifi_rx_buffer.data [ wifi_rx_buffer.head++ ];
-          read_data++;
-
-          if ( wifi_rx_buffer.head >= RING_BUFFER_SIZE ) {
-            wifi_rx_buffer.head = 0;
-          }
-          break;
-        }
-      } while ( (HAL_GetTick() - tick_start) < 200);
-    }
-  return read_data;
-}
-
-/**
-  * @brief  Reception Event Callback (Rx event notification called after use of advanced reception service).
-  * @param  huart UART handle
-  * @param  Size  Number of data available in application reception buffer (indicates a position in
-  *               reception buffer until which, data are available)
-  * @retval None
-  */
-void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t size) {
-  if ( huart == ESP32_UART_HANDLE ) {
-    static uint16_t tail_pos = 0;
-
-    if ( size > tail_pos ) {
-      tail_pos = size % RING_BUFFER_SIZE;
-      if ( tail_pos != wifi_rx_buffer.head ) {
-        wifi_rx_buffer.tail = tail_pos;
-      }
-    }
-  }
-}
-
-/**
- * @brief  UART error callback.
- * @param  huart: Pointer to the UART handle.
- * @retval None.
- */
-void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart) {
-  (void)*huart;
-  esp32_io_error_handler();
+  return esp32_io_recv_timeout(buffer, length, RECV_NB_TIMEOUT_MS);
 }
 
 /* Private functions ---------------------------------------------------------*/
 
 /**
- * @brief  Handle UART errors by deinitializing the interface.
- * @retval None.
+ * @brief  Receive up to Length bytes, with a per-byte timeout.
+ * @retval Number of bytes actually received.
  */
-static void esp32_io_error_handler(void) {
-  HAL_UART_DMAStop(ESP32_UART_HANDLE);
-  HAL_UART_DeInit(ESP32_UART_HANDLE);
-  while ( 1 ) {
-    /* Error handling loop */
-  }
-}
+static int32_t esp32_io_recv_timeout(uint8_t *buffer, uint32_t length,
+                                     uint32_t timeout_ms) {
+  uint32_t read_data = 0;
 
+  if (buffer == NULL) {
+    return 0;
+  }
+
+  while (length--) {
+    uint8_t byte;
+    uint32_t tick_start = board_millis();
+    int rc;
+    do {
+      rc = uart1_try_read(&byte);
+      if (rc == 1) {
+        *buffer++ = byte;
+        read_data++;
+        break;
+      }
+    } while ((board_millis() - tick_start) < timeout_ms);
+
+    if (rc != 1) {
+      /* Timeout on this byte: return what we have so far. */
+      break;
+    }
+  }
+  return (int32_t)read_data;
+}

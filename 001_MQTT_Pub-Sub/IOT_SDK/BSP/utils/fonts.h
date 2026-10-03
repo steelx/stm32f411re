@@ -38,8 +38,8 @@ extern C {
  *  - 11 x 18 pixels
  *  - 16 x 26 pixels
  */
-#include "stm32f4xx_hal.h"
-#include "string.h"
+#include <stdint.h>
+#include <string.h>
 
 /**
  * @defgroup LIB_Typedefs

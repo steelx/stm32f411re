@@ -9,7 +9,8 @@
 #define INC_OTA_FLASH_H_
 
 /* Includes ------------------------------------------------------------------*/
-#include "main.h"
+#include <stdint.h>
+#include "stm32f4xx.h"
 
 /* Exported types ------------------------------------------------------------*/
 /* Enum for flash operation status */

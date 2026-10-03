@@ -10,8 +10,8 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include <stdint.h>
+#include <stddef.h>
 #include <stdbool.h>
-#include "main.h"
 
 /* Private define ------------------------------------------------------------*/
 #define MAX_AT_CMD_SIZE         256

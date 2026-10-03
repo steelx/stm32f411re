@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
-extern I2C_HandleTypeDef hi2c1;
+static void *hi2c1_stub_handle = 0;
 
 /**
  * @brief Initializes the temperature and humidity sensor.
@@ -26,9 +26,9 @@ extern I2C_HandleTypeDef hi2c1;
 int init_temperature_humidity_sensor(void) {
   hdc_status_t ret;
   LogInfo( ("Initializing temperature and humidity sensor...") );
-  hdc1080_init(&hi2c1, Temperature_Resolution_14_bit, Humidity_Resolution_14_bit);
+  hdc1080_init(hi2c1_stub_handle, Temperature_Resolution_14_bit, Humidity_Resolution_14_bit);
   LogInfo( ("Sensor initialization complete.") );
-  ret = hdc1080_init(&hi2c1, Temperature_Resolution_14_bit, Humidity_Resolution_14_bit);
+  ret = hdc1080_init(hi2c1_stub_handle, Temperature_Resolution_14_bit, Humidity_Resolution_14_bit);
 
   return ret;;
 }
@@ -43,7 +43,7 @@ void get_temperature_reading(float *temperature) {
     LogError( ("Invalid NULL pointer for temperature read.") );
     return;
   }
-  hdc1080_read_temperature(&hi2c1, temperature);
+  hdc1080_read_temperature(hi2c1_stub_handle, temperature);
   LogInfo( ("Temperature: %.2f C,", *temperature) );
 }
 
@@ -58,6 +58,6 @@ void get_humidity_reading(uint8_t *humidity) {
     LogError( ("Invalid NULL pointer for humidity read.") );
     return;
   }
-  hdc1080_read_humidity(&hi2c1, humidity);
+  hdc1080_read_humidity(hi2c1_stub_handle, humidity);
   LogInfo( ("Humidity: %u%%", *humidity) );
 }

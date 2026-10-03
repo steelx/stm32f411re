@@ -2,8 +2,11 @@
 #include "board_clock.h"
 #include "uart.h"
 #include "i2c.h"
+#include <stdio.h>
 
 #include "esp32_at.h"
+
+static void Error_Handler(void);
 
 int main(void)
 {
@@ -43,4 +46,9 @@ int main(void)
          * interrupt/DMA receive buffer before running the course MQTT SDK.
          * No ESP commands or I2C transfers are sent by this demo. */
     }
+}
+
+static void Error_Handler(void)
+{
+    while (1) { }
 }

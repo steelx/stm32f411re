@@ -7,6 +7,8 @@
 
 #include "esp32_at.h"
 #include "esp32_at_io.h"
+#include "board_clock.h"
+#include <assert.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -289,7 +291,7 @@ esp32_status_t esp32_get_sntp_time(sntp_time_t *time_data) {
   snprintf((char *)at_cmd, sizeof(at_cmd), "AT+CIPSNTPTIME?%s", AT_CMD_TERMINATOR);
 
   for (int retries = 0; retries < max_retries; retries++) {
-    HAL_Delay(retry_delay_ms);
+    board_delay_ms(retry_delay_ms);
     if (run_at_cmd((uint8_t *)at_cmd, strlen((char *)at_cmd), (uint8_t *)AT_OK_STRING) != ESP32_OK) {
       continue;
     }

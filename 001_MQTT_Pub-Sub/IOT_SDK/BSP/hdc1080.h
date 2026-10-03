@@ -8,7 +8,7 @@
 #ifndef INC_HDC1080_H_
 #define INC_HDC1080_H_
 
-#include "main.h"
+#include <stdint.h>
 
 #define HDC_1080_ADD                    0x40
 #define Configuration_register_add      0x02
@@ -33,12 +33,12 @@ typedef enum
   Humidity_Resolution_8_bit  = 2
 } humi_resolution_t;
 
-hdc_status_t hdc1080_init(I2C_HandleTypeDef* hi2c_x,
+hdc_status_t hdc1080_init(void* hi2c_x,
                           temp_resolution_t temp_resolution_x_bit,
                           humi_resolution_t humi_resolution_x_bit);
-hdc_status_t hdc1080_read_temperature(I2C_HandleTypeDef* hi2c_x, float* temperature);
-hdc_status_t hdc1080_read_humidity(I2C_HandleTypeDef* hi2c_x, uint8_t* humidity);
-hdc_status_t hdc1080_start_measurement(I2C_HandleTypeDef* hi2c_x,
+hdc_status_t hdc1080_read_temperature(void* hi2c_x, float* temperature);
+hdc_status_t hdc1080_read_humidity(void* hi2c_x, uint8_t* humidity);
+hdc_status_t hdc1080_start_measurement(void* hi2c_x,
                                        float* temperature,
                                        uint8_t* humidity);
 #endif /* INC_HDC1080_H_ */

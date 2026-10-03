@@ -10,7 +10,7 @@
 #include "sh1106.h"
 #include "fonts.h"
 
-extern SPI_HandleTypeDef hspi1;
+static void *sh1106_stub_handle = 0;
 
 void oled_show_message(const char *line1, const char *line2)
 {
@@ -19,7 +19,7 @@ void oled_show_message(const char *line1, const char *line2)
   sh1106_puts((char *)line1, &Font_7x10, 1);
   sh1106_gotoXY(0, 12);
   sh1106_puts((char *)line2, &Font_7x10, 1);
-  sh1106_update_screen(&hspi1);
+  sh1106_update_screen(sh1106_stub_handle);
 }
 
 void oled_show_status(const char *status)
@@ -29,5 +29,5 @@ void oled_show_status(const char *status)
   sh1106_puts("Status:", &Font_7x10, 1);
   sh1106_gotoXY(0, 16);
   sh1106_puts((char *)status, &Font_7x10, 1);
-  sh1106_update_screen(&hspi1);
+  sh1106_update_screen(sh1106_stub_handle);
 }
