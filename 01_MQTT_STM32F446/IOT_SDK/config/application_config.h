@@ -32,8 +32,8 @@
 
 #include "logging_stack.h"
 
-#define WIFI_SSID                          "BHARATISOFT 2025"
-#define WIFI_PASSWORD                      "*********"
+#define WIFI_SSID                          "password"
+#define WIFI_PASSWORD                      "EcoSport#2016"
 
 #define MQTT_BROKER                        "****************.iot.ap-south-1.amazonaws.com"
 #define MQTT_PORT                          8883
