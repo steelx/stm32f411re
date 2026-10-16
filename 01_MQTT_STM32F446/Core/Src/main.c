@@ -25,6 +25,7 @@
 #include "sh1106.h"
 #include "oled_util.h"
 #include "application_config.h"
+#include "utils.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -122,6 +123,9 @@ int main(void)
 	  LogInfo(("Retrying to connect to WIFI AP: '%s' ... \n", WIFI_SSID));
 	}
 	LogInfo(("Successfully connected to WIFI AP: '%s' \n", WIFI_SSID));
+
+	/* Ask the ESP32 for the IP assigned by the router. */
+	ESP32_Print_IP_Address();
 
 
 	/* Ensure MX_SPI1_Init() has already been called. */
